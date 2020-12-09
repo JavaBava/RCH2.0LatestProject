@@ -1,0 +1,82 @@
+<div class="side-mobile mt-4">
+	<div class="float-left "> 
+	<!-- bs code start here       -->
+		
+	<!-- Container for sidebar(s) + page content -->
+	<ng-sidebar-container  style="height:550px; width:320px;  position:absolute" class="sidenav">
+
+		<!-- A sidebar -->
+		<ng-sidebar [(opened)]="_opened" position="left" >
+
+	<div class=" bg-bluee float-left pt-2">
+
+	<div class="col-md-12 text-center text-white">
+	  <div class="text-center"> <img src="assets/images/user-blue.png"> </div>
+	  <h5 class="mt-2">{{username }}</h5>
+	  <p> {{designation}} </p>
+	  <p><i class="fa fa-map-marker mr-2" id="location"></i>  {{location}} </p>
+	  <div class="col-md-12 bg-primary rounded-blue mx-auto  ml-0 mr-0  float-left" >
+		<div class="col-md-6 border-right border-white text-white small ml-0 mr-0  float-left text-13"> 918 Registration</div>
+		<div class="col-md-6 small  ml-0 mr-0 float-right text-13"> 918 Registration</div>
+	  </div>
+	</div>
+	<div class="clearfix"> </div>
+	<nav>
+	  <ul class="text-white list-inline ml-3 mt-3 mr-2 float-left col-md-12">
+		 <a href ="/home/dashboard" class="text-white ">  <li class="mt-3 border-bottom border-dark pb-2"> <i class="fa fa-tachometer mr-2"></i> Dashboard   </li></a>
+		 <a href ="/home/comingsoon" class="text-white"> <li class="mt-3 border-bottom border-dark pb-2"> <i class="fa fa-star mr-2"></i> Target  </li></a>
+
+		<a href ="/home/changepassword" class="text-white"> <li class="mt-3 border-bottom border-dark pb-2">  <i class="fa fa-cog mr-2"></i> Change Password </li></a>
+		 <li class="mt-3 border-bottom border-dark pb-2 mb-4 text-white"  (click)="logout()">  <i class="fa fa-power-off"> <li></li></i>  <span class="ml-3 h-pointer">Logout</span> </li>
+		 <li class="mt-3  pb-2 mb-4">   </li>
+		 <li class="mt-3  pb-2 mb-4">   </li>
+
+	 
+	  </ul>
+	</nav>
+	</div>
+
+
+
+		</ng-sidebar>
+
+		<!-- Page content -->
+		
+
+	</ng-sidebar-container>
+		 
+		 <!-- bs code end here         -->
+	</div>
+
+</div>
+
+
+
+
+<div class="desktopscreen">
+<div class="logo text-center mt-1 pt-1 "> <a href="/home" alt="Logo"> <img src="assets/images/logo-rch.jpg"> </a> </div>
+<div class="col-md-12 text-center text-white">
+  <div class="text-center"> <img src="assets/images/user-blue.png"> </div>
+  <h6 class="mt-2">{{username}} </h6>
+  <p> {{designation}} </p>
+  <p><i class="fa fa-map-marker mr-2" id="location"></i>  {{location}} </p>
+  <div class="col-md-12 bg-primary rounded-blue mx-auto  ml-0 mr-0  float-left" >
+    <div class="col-md-6 border-right border-white text-white small ml-0 mr-0  float-left text-13"> 918 Registration</div>
+    <div class="col-md-6 small  ml-0 mr-0 float-right text-12"> 430 Updation</div>
+  </div>
+</div>
+<div class="clearfix"> </div>
+<nav>
+  <ul class="text-white list-inline ml-3 mt-3 mr-2 float-left col-md-12">
+     <a href ="/home/dashboard" class="text-white ">  <li class="mt-3 border-bottom border-dark pb-2 text-13"> <i class="fa fa-tachometer mr-2"></i> Dashboard   </li></a>
+     <a href ="/home/comingsoon" class="text-white"> <li class="mt-3 border-bottom border-dark pb-2 text-13"> <i class="fa fa-star mr-2"></i> Target  </li></a>
+     <a href ="/home/changepassword" class="text-white"> <li class="mt-3 border-bottom border-dark pb-2 text-13">  <i class="fa fa-cog mr-2"></i> Change Password </li></a>
+     <li class="mt-3 border-bottom border-dark pb-2 mb-4 text-white text-13"  (click)="logout()">  <i class="fa fa-power-off"> <li></li></i>  <span class="ml-3 h-pointer">Logout</span> </li>
+     <li class="mt-3  pb-2 mb-4">   </li>
+     <li class="mt-3  pb-2 mb-4">   </li>
+
+ 
+  </ul>
+</nav>
+</div>
+

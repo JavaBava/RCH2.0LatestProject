@@ -1,0 +1,49 @@
+export class UserModel
+{
+    ashaCatchmentId?: number
+ashaCatchmentName?: string
+birthDate?: any
+createDt?: any
+createdBy?: number
+currentAddress?: string
+districtId?: number
+districtLgdId?: number
+districtName?: string
+email?: string
+facilityName?: string
+facilityType?: string
+firstName?: string
+gender?: string
+healthBlockLgdId?: number
+healthBlockName?: string
+healthblockId?: number
+inactiveDt?: any
+ipAddress?: string
+lastLogin?: any
+lastName?: string
+lastPwdChangeDt?: any
+middleName?: string
+mob?: number
+password?: string
+phcId?: number
+rurUrbHierarchy?: string
+stateId?: number
+stateName?: string
+status?: number
+subCentreId?: number
+subFacilityName?: string
+talukaId?: string
+talukaLgdId?: number
+talukaName?: string
+typeId?: number
+updatedBy?: number
+updatedDt?: number
+userDesignation?: string
+userId?: number
+userName?: string
+useridNat?: number
+villageId?: number
+villageLgdId?: number
+villageName?: string
+wardNo?: number
+}

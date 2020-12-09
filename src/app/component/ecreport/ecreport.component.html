@@ -1,0 +1,54 @@
+<app-hierarchy (usehierarchy)="usehierarchyHandler($event)"></app-hierarchy>
+<div class="bg-white col-md-12 float-left pl-0 pr-0">
+<div class="col-md-8 mx-auto mt-3">
+	<div class="col-md-5 float-left ">
+		<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Year: </label>  </div>
+	   <div class="col-sm-6 float-left  pr-0 mr-0 ml-0"> <select id="finanacialYr"  [(ngModel)]="selectdYear"   name="finanacialYr" class="form-control" >
+		   <option value="" disabled>Choose your Year</option>
+			 <option *ngFor ="let h of financial_year" [ngValue]="h.code">{{h.name}}</option>
+				 </select> </div>
+   </div>
+   <div class="float-left col-md-6 login-card pl-0 pr-0">
+   <button  (click)="getecdata()" class="btn  login-btn float-left radius-p mr-1  ">Submit</button>	
+   <button   (click)="downloadpdf()" class="btn btn-success float-left radius-p ">Download</button>
+	</div>
+</div>
+
+<div class=" col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-right"> Eligible Couple Report </div>
+
+<div class="text-center col-md-12 pl-0 pr-0 mt-2 float-left ">
+	<table class="table border" border="1">
+  <thead class="thead-dark text-14">
+    <tr>
+	  <th scope="col"> S.No. </th>
+	  <th scope="col"> Financial Year </th>
+      <th scope="col">Registration No.</th>
+      <th scope="col">Woman Name</th>
+      <th scope="col">Husband Name</th>
+	  <th scope="col"> Registration Date</th>
+	  <th scope="col"> Address</th>
+	  
+	 
+    </tr>
+  </thead>
+  <tbody class="text-14">
+	<tr *ngFor="let data of ecdatalist; let i=index">
+		<th scope="row">{{i+1}}</th>
+		<td style="text-align: right;">{{data.financial_Year}}</td>
+		<td style="text-align: right;">{{data.regNo}}</td>
+		<td style="text-align: left;">{{data.pwName}}</td>
+		<td style="text-align: left;">{{data.husbandName}}</td>
+		<td style="text-align: right;">{{data.regDate}}</td>
+		<td style="text-align: left;">{{data.vName}}</td>
+	
+		
+	</tr>
+  </tbody>
+</table>
+ 
+	
+ 
+
+	</div>	
+	</div>
+	<div class="col-md-12 float-left mt-5 mb-5"></div>

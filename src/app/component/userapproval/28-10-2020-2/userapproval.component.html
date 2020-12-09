@@ -1,0 +1,364 @@
+<div class="shadow-sm  bg-white col-md-12  border rounded float-left text-center   pt-2 pb-2  mt-2 mb-2  ">
+
+
+<div class="alert alert-success" role="alert" *ngIf="showapprovedMsg">
+                  {{approveMSG}}
+                   </div>
+				   
+				   <div class="alert alert-success" role="alert" *ngIf="showrejectMsg">
+                  {{rejectMSG}}
+                   </div>
+
+    <div class="col-md-12  float-left pl-0 pr-0 page-height p-scroll text-13 pl-0 pr-0">
+	
+	<div *ngIf="UserData?.length > 0 ; else no_data_templ"> 
+	
+	<table class="table float-left col-md-12"  >
+  <thead class="thead-dark text-13">
+    <tr>
+	  <th scope="col"> Sr. No. </th>
+	  <th scope="col"> First Name  </th>
+      <th scope="col">Last Name</th>
+      <th scope="col">User ID</th>
+      <th scope="col"> DOB </th>
+	  <th scope="col"> Gender </th>
+	  <th scope="col">Mobile number</th>
+      <th scope="col">Email ID </th>
+      <th scope="col">Desgination</th>
+     
+      <th scope="col">View Details</th>
+      <th scope="col">Approve</th>
+      <th scope="col">Reject</th>
+       <th scope="col"></th>  
+    </tr>
+  </thead>
+  <tbody >
+  
+   
+   
+   <tr *ngFor="let i=index ; let val of UserData | paginate:{itemsPerPage: 6, currentPage:currentPage} " >
+        <th scope="row"> {{ (currentPage - 1) * 6 + i +1 }} </th>
+        <td> {{val.firstName}} </td>
+        <td> {{val.lastName}}</td>
+         <td>{{val.userName}} - ({{val.id}})</td>
+        <td>{{val.birthDate | slice:0:10 | date: 'dd-MM-yyyy'}} </td>
+        <td>
+	<ng-template [ngIf]="val.gender=='M'"> Male </ng-template>
+	<ng-template [ngIf]="val.gender=='F'"> Female</ng-template>
+	<ng-template [ngIf]="val.gender=='T'"> Transgender</ng-template> </td>
+        <td> {{val.mob}}  </td>
+        <td>{{val.email}}</td>
+        <td> {{val.userDesignation}}  </td>
+      
+        <td> <button class="rounded btn btn-info" (click)="open(mymodal,val,'View')"> View </button> </td>
+        <!-- <td> <button class="rounded btn btn-success" (click)="clickApprove(val.id,1,userIdhtml,'',val.userName)"> Approve </button> </td> -->
+		
+		
+		
+		  <td> <button class="rounded btn btn-success" (click)="open(mymodalapprove,val,'Approve')"> Approve </button> </td>
+
+        <!--<td><button class="rounded btn btn-danger" (click)="clickReject(val.id,99,userIdhtml,'',val.userName)" > Reject </button>  </td> -->
+
+         <td><button class="rounded btn btn-danger" (click)="open(mymodalreject,val,'Reject')" > Reject </button>  </td> 
+		 
+      </tr>
+     
+	 
+	 
+     
+  </tbody>
+  
+ 
+	
+	
+</table>
+  <pagination-controls (pageChange)="currentPage=$event"></pagination-controls>
+
+</div>  
+
+ <ng-template #no_data_templ>
+     No record found...
+</ng-template>
+
+</div>
+  </div>
+  <div class="col-md-12 float-left"></div>
+	
+	
+<!-- bootstrep model popup code start here  -->	
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">View Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+   
+	
+	<div class="modal-body">
+ 
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">First Name: </label>
+    <div class="col-sm-7">
+	{{userfrommodel.firstName}}
+    
+    </div>
+   </div>
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Last Name:</label>
+    <div class="col-sm-7">
+	{{userfrommodel.lastName}}
+     
+    </div>
+   </div>
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">User ID : </label>
+    <div class="col-sm-7">
+	{{userfrommodel.userName}}
+     
+    </div>
+   </div>
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">DOB : </label>
+    <div class="col-sm-7">
+	{{userfrommodel.birthDate | slice:0:10 | date: 'dd-MM-yyyy'}}
+    
+    </div>
+   </div>
+   
+    <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Gender : </label>
+    <div class="col-sm-7">
+	
+	<ng-template [ngIf]="userfrommodel.gender=='M'"> Male </ng-template>
+	<ng-template [ngIf]="userfrommodel.gender=='F'"> Female</ng-template>
+	<ng-template [ngIf]="userfrommodel.gender=='T'"> Transgender</ng-template>
+    
+    </div>
+   </div>
+   
+    <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Mobile Number : </label>
+    <div class="col-sm-7">
+	{{userfrommodel.mob}}
+   
+    </div>
+   </div>
+   
+    <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Email ID : </label>
+    <div class="col-sm-7">
+	{{userfrommodel.email}}
+   
+    </div>
+   </div>
+   
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Desgination : </label>
+    <div class="col-sm-7">
+	{{userfrommodel.userDesignation}}
+   
+    </div>
+   </div>
+   
+   <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">User Type : </label>
+    <div class="col-sm-7">
+	
+	<ng-template [ngIf]="userfrommodel.typeId=='3'"> District</ng-template>
+	<ng-template [ngIf]="userfrommodel.typeId=='4'"> Health Block</ng-template>
+	<ng-template [ngIf]="userfrommodel.typeId=='5'"> Health Facility</ng-template>
+	<ng-template [ngIf]="userfrommodel.typeId=='6'"> Health SubFacility</ng-template>
+	
+	
+     
+    </div>
+   </div>
+   
+    <div class="form-group row">
+    <label class="col-sm-5 font-weight-bold">Rural / Urban : </label>
+    <div class="col-sm-7">
+	
+	<ng-template [ngIf]="userfrommodel.rurUrbHierarchy=='r'"> Rural</ng-template>
+	<ng-template [ngIf]="userfrommodel.rurUrbHierarchy=='u'"> Urban</ng-template>
+	
+    
+    </div>
+   </div>
+   
+
+ </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>	
+	
+	<!-- bootstrep model popup code for view end  here  -->
+	
+	<!-- bootstrep model popup code for reject start here  -->	
+<ng-template #mymodalreject let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User ID : {{userfrommodel.userName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  
+   
+	
+	<div class="modal-body">
+	
+	                 <div class="alert alert-danger" role="alert" *ngIf="showServerresponseMsg">
+                    {{errorresponse}}
+                   </div>
+ 
+                    <form [formGroup]="rejectForm" (ngSubmit)="onSubmit(rejectForm)" autocomplete="off" class="mx-auto text-13">
+				   
+				     <input type="hidden" formControlName="user_id" class="form-control" id="user_id" value="{{userfrommodel.id}}" name="user_id" [ngModel]="userfrommodel.id">
+					
+							
+					  <input type="hidden"  formControlName="user_status" class="form-control" id="user_status" name="user_status" [ngModel]="99">
+					  <input type="hidden" formControlName="approved_by" class="form-control" id="approved_by" name="approved_by" [ngModel]="userIdhtml">
+					   <input type="hidden" formControlName="username" class="form-control" id="username" name="username" [ngModel]="userfrommodel.userName">
+					
+					 
+                      <div class="form-group col-md-12 float-left">
+                        <label for="staticEmail" class="col-sm-4 col-form-label text-label float-left" >Enter Reason : <span> * </span></label>
+                         
+						 <div class="col-sm-7 float-left">
+						<textarea class="col-md-12"  formControlName="reason" name="reason" id="reason" [ngClass]="{ 'is-invalid': submitted && f.reason.errors }"></textarea>
+						<div *ngIf="submitted && f.reason.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.reason.errors.required">Please Enter Reason</div>
+                            </div>
+						
+						</div>
+						
+						
+                    <div class="form-group  float-left col-md-12">
+                        <div class="mx-auto col-md-4 login-card mt-2">
+                            <button type="submit"  id="submitbutton" class="btn btn-block login-btn mb-4 radius-p">Submit</button>
+                        </div>
+                    </div>				
+                       
+                    </div>
+					 
+					 
+					 </form>
+ 
+
+ </div>
+ 
+ 
+
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+  
+</ng-template>	
+	
+	<!-- bootstrep model popup reject code for view end  here  -->	
+	
+	
+	<!-- bootstrep model popup code for assigne role start here  -->	
+<ng-template #mymodalapprove let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Assigne Roles</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+ 
+   
+	
+	<div class="modal-body">
+	
+	             
+
+<div class="float-left col-md-12 pl-0 pr-0">
+	
+	<form [formGroup]="assigneForm" (ngSubmit)="onSubmit2(assigneForm)" autocomplete="off" class="mx-auto text-13">
+       
+            <div class="float-left col-md-12 pl-0 pr-0 mt-3 ">
+                <div class="col-md-6 float-left pl-0 pr-0">
+                     <div class="col-sm-4 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> User ID  :<span> * </span>   </label>  </div>
+                    <div class="col-sm-8 float-left"> 	
+					<input value="{{ApprovedUser[0].userNames}}" class="form-control input-new ml-0" id ="" name="" type="text" readonly/>
+					
+                      	<input class="form-control input-new ml-0" id ="" formControlName="user_id" [ngModel]="ApprovedUser[0].id" type="text" />
+						<input class="form-control input-new ml-0" id ="" formControlName="stateId" [ngModel]="6" type="text" />
+					</div>
+                </div>
+                <div class="col-md-6 float-left pl-0 pr-0">
+                     <div class="col-sm-4 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> User Name : <span> * </span> </label>  </div>
+                    <div class="col-sm-8 float-left"> 
+					
+					 <input  value="{{userfrommodel.firstName}}"class="form-control input-new ml-0" id ="" name="" type="text" readonly/>
+
+					</div>
+                </div>
+			
+            </div>
+            <div class="float-left col-md-12 pl-0 pr-0 mt-3">
+			
+			
+        
+                <div class="col-md-6 float-left pl-0 pr-0">
+                    <div class="col-sm-4 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Roles : <span> * </span></label>  </div>
+                    <div class="col-sm-7 ml-3 float-left border pt-2 pb-3 pr-0 mr-0">
+					
+                        <div class="form-check" *ngFor="let i=index ; let val of AssigneRole" [assigneForm]="i">
+						 <label class="form-check-label">
+						 
+                          <input type="checkbox" class="form-check-input" id ="" formControlName="user_roles" [ngModel]="val.roleId" >{{val.roleName}} 
+                        </label>
+                      </div>
+					  
+					 
+					
+                                                            
+                    </div>
+                </div>		
+    
+                <div class="col-md-6 float-left">
+                    <div class="col-sm-4 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Application : <span> * </span> </label>  </div>
+                    <div class="col-sm-7 ml-3 float-left border pt-2 pb-3 pr-0 mr-0"> 
+					
+                        <div class="form-check" *ngFor="let i=index ; let val of Application">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id ="" formControlName="user_applications" [ngModel]="val.appId" >{{val.appName}}
+                        </label>
+                      </div>
+                                                           
+                    </div>
+                </div>			
+            </div>
+            <div class="form-group col-md-12 float-left mt-3">
+                <div class=" mx-auto col-md-3 login-card">
+                    <button type="submit"  class="btn btn-block login-btn login-card  mb-4" id="" name="">Submit</button>
+                </div>
+            </div>
+	</form>
+
+</div>
+
+
+
+ 
+
+ </div>
+ 
+ 
+
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+  
+</ng-template>	
+	
+	<!-- bootstrep model popup assing role code for assing role view end  here  -->	

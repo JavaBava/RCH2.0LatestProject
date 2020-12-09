@@ -1,0 +1,1112 @@
+<app-hierarchy (usehierarchy)="usehierarchyHandler($event)"></app-hierarchy>
+<div class="float-left col-md-12 error_msg pb-0" *ngIf="hierarchyMsg">
+	<div class="col-md-2 mt-1 pt-2 text-12 alert-danger float-left error_msg pb-0" > 
+
+	
+<label class="error_msg1 pb-0" role="alert">{{hmsg}}</label>
+	</div>
+</div>
+<app-search (useSearch)="useSeachHandler($event)"></app-search>
+
+<button id="openModalButton" class="btn btn-lg btn-outline-primary" [hidden]="true" (click)="open(mymodal)">Open My Modal</button>
+  
+<ng-template #mymodal let-modal>
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-basic-title">Existing Registerd Beneficiary</h5>
+		<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+		  <span aria-hidden="true">×</span>
+		</button>
+	  </div>
+  <div class="text-center col-md-12 float-left mt-2 pl-0 pr-0">
+    <table class="table" border="1">
+      <thead class="thead-dark text-12 border-dark border">
+        <tr class="border-dark border">
+          <th scope="col">Sr No.</th>
+          <th scope="col">RCH ID </th>
+          <th scope="col">Woman Name </th>
+          <th scope="col">Husband Name </th>
+          <th scope="col">Woman's Mobile No. </th>
+          <th scope="col">Date of Birth</th>
+        <th scope="col">Age </th>
+          <th scope="col">Date of Registration</th>
+		  <th scope="col">Address</th>
+		  <th scope="col">Status</th>
+        
+         
+
+        </tr>
+      </thead>
+      <tbody class="text-12" >
+        <tr *ngFor="let search of searchArray; let i=index">
+		  <th  scope="row">{{i+1}}</th>
+          <td align="right" ><a (click)="edit(search)" style="cursor:pointer;color:blue">{{search.registration_no}} </a></td>
+          <td align="left"><span ng-if="search.name_wife">{{search.name_wife}} </span><span ng-if="search.middlename_wife">  {{search.middlename_wife}} </span><span ng-if="search.lastname_wife">{{search.lastname_wife}} </span></td>
+          <td align="left"><span ng-if="search.name_husband">{{search.name_husband}} </span><span ng-if="search.middlename_husband">  {{search.middlename_husband}} </span><span ng-if="search.lastname_husband">{{search.lastname_husband}} </span></td> 
+		  <td align="right">{{search.mobile_no}}</td> 
+		  
+		  <td align="right"><span ng-if="search.pw_dob"> {{search.pw_dob | slice:0:10 | date: 'dd-MM-yyyy'}} </span></td>
+		  <td align="right">{{search.wife_current_age}} </td>
+		 
+          <td align="right"><span ng-if="search.date_regis"> {{search.date_regis | slice:0:10 | date: 'dd-MM-yyyy'}} </span></td>
+		  <td align="right">{{search.address}}</td>
+          <td align="right">{{pagestatus}}</td>
+          
+		  <!-- <td>
+			<span style="margin-right: 10px"><button (click)="edit(search)"
+					class="btn btn-primary mb-2">Edit</button> </span></td> -->
+          
+ 
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <div class="modal-footer">
+    <button id="closeButton" type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Back To Search</button>
+  </div>
+</ng-template>
+<div class="container float-left col-md-6 mt-2 pl-0 pr-0">
+	<ul class="step d-flex flex-nowrap text-12 ml-0 pl-0">
+		<li class="step-item active">
+			<a href="/home/ecprofile" class="text-13"> Beneficiary Details </a>
+		</li>
+		<li class="step-item  ">
+			<a class="step-item ">Tracking of Eligible Couple </a>
+		</li>
+	<!-- <li class="step-item ">
+      <a  class="" onclick="return false;"> General Information for Pregnant Woman </a>
+    </li> -->
+    	<!-- <li class="step-item">
+      <a  class="">ANC Details </a>
+    </li>
+    <li class="step-item">
+      <a  class="">Delivery & Infant Details  </a>
+    </li>
+  
+    <li class="step-item">
+      <a  class="">Mother PNC</a> 
+    </li>
+    <li class="step-item">
+      <a  class="">Infant PNC</a>
+    </li> -->
+	</ul>
+
+</div>
+
+<div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-2">
+
+	
+	
+	<div class=" col-md-12 mt-3  pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left"> EC Registration
+	</div>
+	<div class="float-left col-md-12 error_msg pb-0" *ngIf="validationMsg">
+		<div class="col-md-12  mt-3 alert alert-danger float-left error_msg pb-0" role="alert">
+
+		<!-- 	<p *ngFor="let msg of vmsg; let i =index"  class="error_msg1">
+				{{i+1}}.&nbsp;{{msg}}
+
+			</p> -->
+<p class="error_msg1">{{vmsg}}</p> 
+		</div>
+	</div>
+	<div class="container border bg-white col-md-12 float text-12 mb-4 float-left mt-3 mob-text " *ngIf="!fill_hierarchy">
+	
+
+		<form [formGroup]="ECForm" autocomplete="off" (ngSubmit)="onSubmit(ECForm)">
+
+			<div class="col-md-12 float-left pl-0 pr-0 mt-3  ">
+				<div class="col-sm-3 mt-2 text-right float-left"> <label class="text-label"> RCH ID no. of Woman : <span> * </span>
+					</label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control text-right pr-4 col-md-10" type="text" readonly
+						id='RCHID' formControlName="RCHID" /> </div>
+				<div class="col-sm-3 mt-2 text-right float-left"> <label class="text-label"> Health Provider Name : <span> *
+						</span> </label> </div>
+				<div class="col-sm-3 float-left"> <select id="healthProviderid" name="anm" class="form-control col-md-10 " 
+						formControlName="healthProvider"
+						[ngClass]="{ 'is-invalid': submitted && f.healthProvider.errors }">
+						<option value="" >Select</option>
+						<option *ngFor="let a of healthProviderANM" [value]="a.id">{{a.name}}</option>
+					</select>
+					<div *ngIf="submitted && f.healthProvider.errors"
+						class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+						<div class="error_msg1" *ngIf="f.healthProvider.errors.required">Health Provider
+							is required</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-12 float-left pl-0 pr-0 mt-3">
+				<div class="col-sm-3 mt-2 text-right float-left "> <label class="text-label"> Name of MPW : </label> </div>
+				<div class="col-sm-3 float-left"> <select class="form-control col-md-10" formControlName="MPW" id='MPWid'>
+						<option value="" >Select</option>
+						<option *ngFor="let a of healthProviderMPW" [value]="a.id">{{a.name}}</option>
+					</select>
+				</div>
+				<div class="col-sm-3 mt-2 text-right float-left"> <label class="text-label"> ASHA Name : <span> * </span> </label>
+				</div>
+				<div class="col-sm-3 float-left"> <select class="form-control col-md-10" formControlName="ASHA" id='ASHAid'
+						[ngClass]="{ 'is-invalid': submitted && f.ASHA.errors }">
+						<option value="" >Select</option>
+						<option *ngFor="let a of healthProviderASHA" [value]="a.id">{{a.name}} </option>
+					</select>
+					<div *ngIf="submitted && f.ASHA.errors"
+						class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+						<div class="error_msg1" *ngIf="f.ASHA.errors.required">ASHA is required</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-12 float-left pl-0 pr-0 mt-3">
+				<div class="col-md-6 float-left">
+					<div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Date of Registration : <span> *
+					</span> </label>
+				<div class="text-under">As per Register (dd-mm-yyyy) </div>
+			</div>
+			<div class="col-sm-5 float-left">
+				<!-- <input class="form-control " type="text"  bsDatepicker /> -->
+				<!-- <div class="font-icon"> <i class="fa fa-calendar"></i> </div>  -->
+				<input  #input1 id="RegDateid" class="form-control text-right pr-4 col-md-12 bg-white" type="text"  (keydown.Tab)="onInputEntry($event, input2)"
+					[ngClass]="{ 'is-invalid': submitted && f.RegDate.errors }" formControlName="RegDate"
+					ngbDatepicker #d="ngbDatepicker" [readonly]="true" [max]="maxDate" [minDate]="minDate"
+					[maxDate]="maxDate" (ngModelChange)="changeRegDate($event)">
+				<div class="font-icon pl-4" (click)="d.toggle()"> <i class="fa fa-calendar" id='Regcalenderid'></i> </div>
+
+				<div *ngIf="submitted && f.RegDate.errors"
+				class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+				<div class="error_msg1" *ngIf="f.RegDate.errors.required">Date of Registration is required</div>
+			</div>
+
+			</div>
+
+				</div>
+
+				<div class="col-md-6 float-left">
+					<div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label">Financial Year : <span> * </span>
+					</label> </div>
+				<div class="col-sm-6 float-left">
+					<input type="text" id="finanacialYr" class="form-control input-textsize col-md-10" #input2
+						id='finanacialYrid' formControlName="finanacialYr" readonly />
+					
+				</div>
+					
+				</div>
+
+
+			</div>
+
+
+			<div class="col-md-12 pr-0 pl-0 mt-4 mb-3 float-left">
+				<div class="col-md-6  float-left pl-0 ">
+
+					<fieldset class="border pl-2 ">
+						<legend class="text-primary pl-2 leg-border">
+							<h6> Details of Woman : </h6>
+						</legend>
+						<div class="col-md-12 pr-0 pl-0 mt-2 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Name of Woman :
+									<span> * </span> </label> </div>
+							<div class="col-sm-3 pl-2 pr-1 float-left"> <input class="form-control input-textsize" type="text" #input3
+									id='PWfirstnameid' placeholder="First Name" formControlName="PWfirstname" maxlength="100" [readonly]="editableSearch"
+									[ngClass]="{ 'is-invalid': submitted && f.PWfirstname.errors }" />
+								<div *ngIf="submitted && f.PWfirstname.errors"
+									class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0 float-left">
+									<div class="error_msg1" *ngIf="f.PWfirstname.errors.required">First name is
+										required</div>
+
+									<div class="error_msg1" *ngIf="f.PWfirstname.errors.pattern"> Invalid
+										First name </div>
+								</div>
+							</div>
+							<div class="col-sm-2 pl-0 pr-1 float-left"> <input class="form-control input-textsize float-left" type="text"
+									id='PWSecondnameid' placeholder="Middle" formControlName="PWSecondname" maxlength="100"
+									[ngClass]="{ 'is-invalid': submitted && f.PWSecondname.errors }" />
+								<div *ngIf="submitted && f.PWSecondname.errors"
+									class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWSecondname.errors.pattern"> Invalid
+										Middle name </div>
+								</div>
+							</div>
+							<div class="col-sm-2 pl-0 pr-0 float-left"> <input class="form-control input-textsize float-left" type="text"
+									id='PWLastnameid' placeholder="Last " formControlName="PWLastname" maxlength="100"
+									[ngClass]="{ 'is-invalid': submitted && f.PWLastname.errors }" />
+								<div *ngIf="submitted && f.PWLastname.errors"
+									class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWLastname.errors.pattern"> Invalid
+										Last name </div>
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Aadhaar Number :
+								</label> </div>
+							<div class="col-sm-4 float-left"> <input class="form-control input-textsize text-right" type="number" maxlength="12"
+									id='AadhaarNumberid' [disabled]="AadhaarDisabled" /> </div>
+							<div class="form-check col-sm-3 mt-2 float-left">
+								<input type="checkbox" class="form-check-input text-right " id="AadhaarNotAvailableid"
+									[disabled]="AadhaarDisabled"> 
+								<label class="form-check-label check-text " for="exampleCheck1">Not Available</label>
+							</div>
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left ">
+							<div class="col-sm-4 mt-1 text-right pr-1 float-left "> <label class="text-label mb-0"> Account Number/
+								Office Account Number : </label> </div>
+							<div class="col-sm-5 float-left "> <input class="form-control input-textsize text-right" type="text" maxlength="20"
+									id='PWAccountNoid' formControlName="PWAccountNo" [disabled]="PWAccountDisabled" (change)="HusbandAccount()"
+									[ngClass]="{ 'is-invalid': submitted && f.PWAccountNo.errors }" />
+								<div *ngIf="submitted && f.PWAccountNo.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWAccountNo.errors.pattern"> Enter Valid
+										Account Number</div>
+								</div>
+
+							</div>
+							<div class="form-check col-sm-3 mt-2 float-left">
+								<input type="checkbox" class="form-check-input" id="PWAccountNoNotAvailableid" formControlName="PWAccountNoNotAvailable"
+									(change)="PWaccountnoDisable($event)">
+								<label class="form-check-label check-text" id='PWAccNoNotAvailableid' for="exampleCheck1">Not Available</label>
+							</div>
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-2 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Bank Name : </label>
+							</div>
+							<div class="col-sm-5 float-left"> <select id="pwbanknameid" name="bankname" class="form-control"
+									formControlName="PWBankname" [disabled]="PWAccountDisabled">
+									<option value="" >Select </option>
+									<option *ngFor="let s of bankname" [value]="s.id">{{s.bankName}} </option>
+								</select>
+
+							</div>
+
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Branch Name :
+								</label> </div>
+							<div class="col-sm-3 float-left"> <input class="form-control input-textsize " type="text"
+									id='PWBranchnameid' [disabled]="PWAccountDisabled" formControlName="PWBranchname" maxlength="50"
+									[ngClass]="{ 'is-invalid': submitted && f.PWBranchname.errors }" />
+								<div *ngIf="submitted && f.PWBranchname.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWBranchname.errors.pattern"> Enter Valid
+										Branch Name </div>
+										<div class="error_msg1" *ngIf="f.PWBranchname.errors.maxLength"> Enter Valid
+											Branch Name </div>
+								</div>
+							</div>
+							<div class="col-sm-2 mt-2 text-right pr-1 pl-1 float-left "> <label class="text-label"> IFSC Code :
+								</label> </div>
+							<div class="col-sm-2  pr-1 pl-1 float-left"> <input class="form-control input-textsize " type="text"
+									id='PWIFSCcodeid' [disabled]="PWAccountDisabled" formControlName="PWIFSCcode"
+									[ngClass]="{ 'is-invalid': submitted && f.PWIFSCcode.errors }" />
+								<div *ngIf="submitted && f.PWIFSCcode.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWIFSCcode.errors.pattern"> Please enter Valid IFSC
+										Code </div>
+								</div>
+								<div *ngIf="submitted && f.PWIFSCcode.errors" class="text-danger">
+                                        <div class="error_msg1" *ngIf="f.PWIFSCcode.errors.maxLength"> Please enter Valid IFSC Code </div>
+                                    </div> 
+							</div>
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left">
+							<div class="col-sm-4 mt-1 text-right pr-1 float-left"> <label class="text-label mb-0"> Is Aadhar
+									Linked with Bank Account : </label> </div>
+							<div class="col-sm-2 float-left"> <select class="form-control pl-0 pr-0"
+									[disabled]="PWAccountDisabled" id='PWAadharLinkid' formControlName="PWAadharLink">
+									<option [value]="0">No</option>
+									<option [value]="1">Yes</option>
+									
+									<option [value]="2">Don’t Know</option>
+									<option [value]="3">Not applicable</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-2 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Occupation : <span>
+										* </span></label> </div>
+							<div class="col-sm-5 float-left"> <select id="pwOccupationid" name="Occupation" class="form-control"
+									formControlName="PWOccupation"
+									[ngClass]="{ 'is-invalid': submitted && f.PWOccupation.errors }">
+									<option value="" >Select </option>
+									<option *ngFor="let s of occupations" [value]="s.id">{{s.name}} </option>
+								</select>
+								<div *ngIf="submitted && f.PWOccupation.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWOccupation.errors.required">Occupation is
+										required</div>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left">
+							<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Level of Education :
+									<span> * </span></label> </div>
+							<div class="col-sm-5 float-left"> <select id="pweducationsid" name="educations" class="form-control"
+									formControlName="PWEducation"
+									[ngClass]="{ 'is-invalid': submitted && f.PWEducation.errors }">
+									<option value="" >Select </option>
+									<option *ngFor="let s of educations" [value]="s.id">{{s.name}} </option>
+								</select>
+								<div *ngIf="submitted && f.PWEducation.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWEducation.errors.required">Education is
+										required</div>
+								</div>
+
+							</div>
+
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-3 float-left">
+							<div class="col-sm-4 mt-1 text-right pr-1 float-left"> <label class="text-label"> Current Age /<br>
+									Date of Birth : <span> * </span></label> </div>
+							<div class="col-sm-8 float-left pl-4 ml-0 mr-0 pr-0 float-left">
+								<div class="col-md-4 float-left">
+									<input class="form-check-input mt-2 " type="radio" name="rdpw" id="rdpwage"
+										value="pwage" checked (change)="SelectPWAge($event)">
+
+									<input class="form-control input-textsize col-sm-12 text-right float-left" type="text"
+										(change)="changePWage()" id='PWageid' formControlName="PWage" (keydown)="keydownfunction($event)" maxlength="2"
+										[ngClass]="{ 'is-invalid': submitted && f.PWage.errors }" />
+										<div *ngIf="submitted && f.PWage.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+											<div class="error_msg1" *ngIf="f.PWage.errors.required">Current Age is required
+											</div>
+			
+											<div class="error_msg1" *ngIf="f.PWage.errors.pattern"> Invalid Current
+												Age </div>
+			
+											<div class="error_msg1" *ngIf="f.PWage.errors.maxLength"> Invalid Current Age </div>
+												<div class="error_msg1" *ngIf="f.PWage.errors.min"> Current Age is more then 10 </div>
+										</div>
+
+								</div>
+
+								<div class="ml-0 col-md-6 float-left">
+									<input type="radio" class="form-check-input mt-2" id="rdpwdob" name="rdpw"
+										value="pwdob" (change)="SelectPWAge($event)">
+
+									<input id="PWDOBid" class="form-control input-textsize col-sm-12 bg-white"
+										[max]=" maxDate_PWDOB" [minDate]="minDate_PWDOB" [maxDate]=" maxDate_PWDOB"
+										type="text" [ngClass]="{ 'is-invalid': submitted && f.PWDOB.errors }"
+										formControlName="PWDOB" ngbDatepicker #dob="ngbDatepicker" [readonly]="true"
+										(ngModelChange)="changePWDOB()" />
+									<div class="font-icon pl-4" (click)="dob.toggle()"> <i class="fa fa-calendar" id="PWDOBcalenderid"></i>
+									</div>
+									<div *ngIf="submitted && f.PWDOB.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+										<div class="error_msg1" *ngIf="f.PWDOB.errors.required">Date of Birth is
+											required of Women</div>
+									</div>
+
+								</div>
+						
+							</div>
+							
+							
+						</div>
+						<div class="col-md-12 pr-0 pl-0 mt-1 float-left">
+							<div class="col-sm-4 mt-1 text-right pr-1 float-left"> <label class="text-label"> Age of Woman at <br>
+									Marriage : <div class="text-under2"> (in yrs) </div> </label> </div>
+							<div class="col-sm-8 float-left">
+								<input class="form-control input-textsize text-right col-sm-3" type="text" maxlength="2"
+									id='PWMarriageAgeid' formControlName="PWMarriageAge" (change)="changePWMage()" (keydown)="keydownfunction($event)"
+									[ngClass]="{ 'is-invalid': submitted && f.PWMarriageAge.errors }" />
+								<div *ngIf="submitted && f.PWMarriageAge.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.PWMarriageAge.errors.pattern"> Invalid
+										Women Marriage Age </div>
+
+									<div class="error_msg1" *ngIf="f.PWMarriageAge.errors.maxLength">Invalid
+										Women Marriage Age </div>
+										<div class="error_msg1" *ngIf="f.PWMarriageAge.errors.min"> Marriage Age greater 10 </div>
+									<div class="error_msg1" *ngIf="f.PWMarriageAge.errors.validMarriageAge"> Marriage age should be less than beneficiary current Age </div>
+								</div>
+							</div>
+
+						</div>
+					</fieldset>
+				</div>
+
+				<div class="col-md-6 float-left pr-0">
+
+					<fieldset class="border pl-2 ">
+						<legend class="text-primary pl-2 leg-border">
+							<h6 class="float-left"> Details of Husband: </h6>
+							<div class="float-left ml-4">
+								<!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+								<label class="form-check-label check-text text-dark margin-p mr-2 text-13">
+									<input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck
+										id='HusbandNotApplicableid' (change)="toggleVisibility($event)" /> Not
+									Applicable </label> </div>
+						</legend>
+						<!-- <div *ngIf="!marked"> -->
+							<div class="col-md-12 pr-0 pl-0  float-left mt-2">
+								<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Name of Husband
+										: <span> * </span> </label> </div>
+								<div class="col-sm-3 pl-2 pr-1 float-left"> <input class="form-control input-textsize" type="text"
+										id='HusbandFirstnameid' placeholder="First Name" maxlength="100" [readonly]="editableSearch"
+										formControlName="HusbandFirstname"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandFirstname.errors }" /> 
+										<div *ngIf="submitted && f.HusbandFirstname.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+											<div class="error_msg1" *ngIf="f.HusbandFirstname.errors.pattern">Invalid First name</div>
+										</div></div>
+								<div class="col-sm-2 pl-0 pr-1 float-left"> <input class="form-control input-textsize" type="text"
+										id='HusbandSecondnameid' placeholder="Middle" maxlength="100"
+										formControlName="HusbandSecondname"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandSecondname.errors }" /> 
+										<div *ngIf="submitted && f.HusbandSecondname.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+											<div class="error_msg1" *ngIf="f.HusbandSecondname.errors.pattern">Invalid Middle name</div>
+										</div></div>
+								<div class="col-sm-2 pl-0 pr-0 float-left"> <input class="form-control input-textsize" type="text"
+										id='HusbandLastnameid' placeholder="Last " formControlName="HusbandLastname" maxlength="100"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandLastname.errors }" /> 
+										<div *ngIf="submitted && f.HusbandLastname.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+											<div class="error_msg1" *ngIf="f.HusbandLastname.errors.pattern">Invalid Last name</div>
+										</div></div>
+
+								
+								
+								
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-3">
+								<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Aadhaar Number :
+									</label> </div>
+								<div class="col-sm-4 float-left"> <input class="form-control input-textsize text-right"
+										id='HusbandAadhaarid' type="text" [disabled]="AadhaarDisabled" /> </div>
+								<div class="form-check col-sm-3 mt-2 float-left">
+									<input type="checkbox" class="form-check-input" id="HusbandAadhaarNotAvailable"
+										[disabled]="AadhaarDisabled">
+									<label class="form-check-label check-text" for="exampleCheck1"
+										id="HusbandAadhaarNotAvailableid">Not Available</label>
+								</div>
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left mt-3">
+								<div class="col-sm-4 mt-1 text-right pr-1 float-left "> <label class="text-label mb-0"> Account
+										Number/ Post Office AC No. : </label> </div>
+								<div class="col-sm-5 float-left"> <input class="form-control input-textsize text-right"
+										type="text" [disabled]="AccountNoDisabled" id='HusbandAccountNoid'
+										formControlName="HusbandAccountNo" (change)="HusbandAccount()"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandAccountNo.errors }" />
+									<div *ngIf="submitted && f.HusbandAccountNo.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+										<div class="error_msg1" *ngIf="f.HusbandAccountNo.errors.pattern"> Please Enter
+											Valid Account Number</div>
+									</div>
+								</div>
+								<div class="form-check col-sm-3 mt-2 float-left">
+									<input type="checkbox" class="form-check-input" id="HusbandAccountNotAvailable" formControlName="HusbandAccountNotAvailable"
+										(change)="accountnoDisable($event)">
+									<label class="form-check-label check-text" for="exampleCheck1"
+										id="HusbandAccountNotAvailableid">Not Available</label>
+								</div>
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-2">
+								<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Bank Name :
+									</label> </div>
+								<div class="col-sm-5 float-left"> <select id="bankname" name="bankname" class="form-control"
+										id='HusbandBanknameid' [disabled]="AccountNoDisabled"
+										formControlName="HusbandBankname">
+										<option value="" >Select </option>
+										<option *ngFor="let s of bankname" [value]="s.id">{{s.bankName}} </option>
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-3">
+								<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Branch Name :
+									</label> </div>
+								<div class="col-sm-3 float-left"> <input class="form-control input-textsize" type="text"
+										id='HusbandBranchid' [disabled]="AccountNoDisabled" maxlength="50"
+										formControlName="HusbandBranch"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandBranch.errors }" />
+									<div *ngIf="submitted && f.HusbandBranch.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+										<div class="error_msg1" *ngIf="f.HusbandBranch.errors.pattern"> Please enter
+											Valid Branch Name </div>
+											<div class="error_msg1" *ngIf="f.HusbandBranch.errors.maxLength"> Please enter Valid
+												Branch Name </div>
+									</div>
+								</div>
+
+								<div class="col-sm-2 mt-2 text-right pr-1 pl-1 float-left"> <label class="text-label"> IFSC Code :
+									</label> </div>
+								<div class="col-sm-2  pr-1 pl-1 float-left"> <input class="form-control input-textsize "
+										id='HusbandIFSCid' type="text" [disabled]="AccountNoDisabled"
+										formControlName="HusbandIFSC"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandIFSC.errors }" />
+									<div *ngIf="submitted && f.HusbandIFSC.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+										<div class="error_msg1" *ngIf="f.HusbandIFSC.errors.pattern"> Please enter Valid
+											IFSC Code </div>
+									
+										<div class="error_msg1" *ngIf="f.HusbandIFSC.errors.maxLength"> Please enter
+											Valid IFSC Code </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-3">
+								<div class="col-sm-4 mt-1 text-right pr-1 float-left"> <label class="text-label mb-0"> Is Aadhar
+										Linked with Bank Account : </label> </div>
+								<div class="col-sm-2 float-left"> <select class="form-control pl-0 pr-0"
+										[disabled]="AccountNoDisabled" id='HusbandAadharLinkedid'
+										formControlName="HusbandAadharLinked">
+										<option [value]="0">No</option>
+										<option [value]="1">Yes</option>
+										<option [value]="2">Don’t Know</option>
+									<option [value]="3">Not applicable</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-2">
+								<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Occupation
+										:</label> </div>
+								<div class="col-sm-5 float-left "> <select id="HusbandOccupationid" name="Occupation"
+										class="form-control" formControlName="HusbandOccupation">
+										<option value="" >Select </option>
+										<option *ngFor="let s of occupations" [value]="s.id">{{s.name}} </option>
+									</select>
+								</div> 
+
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left mt-3">
+								<div class="col-sm-4 mt-1 text-right pr-1 float-left "> <label class="text-label"> Level of
+										Education : </label> </div>
+								<div class="col-sm-4 float-left "> <select id="HusbandEducationid" name="educations"
+										class="form-control" formControlName="HusbandEducation">
+										<option value="" >Select </option>
+										<option *ngFor="let s of educations" [value]="s.id">{{s.name}} </option>
+									</select>
+								</div>
+
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-3">
+								<div class="col-sm-4 mt-1 text-right pr-1 float-left "> <label class="text-label"> Current Age
+										/<br> Date of Birth : </label> </div>
+								<div class="col-sm-8 float-left pl-4 ml-0 mr-0 pr-0">
+									<div class="col-md-4 float-left ">
+										<input class="form-check-input mt-2" type="radio" name="exampleRadios"
+											id="husbandage" value="husbandage" checked (change)="SelectHAge($event)" formControlName="HusbandAgeid"/>
+										<input class="form-control input-textsize col-sm-12 text-right" type="text" maxlength="2"
+											(change)="changeHusbandage()" id='HusbandAgeid' formControlName="HusbandAge"
+											(blur)="eligibleCoupleAgeDiff($event)" (keydown)="keydownfunction($event)"
+											[ngClass]="{ 'is-invalid': submitted && f.HusbandAge.errors }" />
+
+									</div>
+
+									<div class="ml-0 col-md-6 float-left">
+										<input class="form-check-input mt-2 " type="radio" name="exampleRadios" 
+											id="husbanddob" value="husbanddob" (change)="SelectHAge($event)" formControlName="HusbandAgeid">
+										<!-- <input class="form-control input-textsize col-sm-7 text-right" type="date"  />  -->
+										<!-- <div class="font-icon "> <a href="#"> <i class="fa fa-calendar"></i></a> </div> 	 -->
+										<input id="HusbandDOBid" class="form-control input-textsize col-sm-12 bg-white"
+											type="text" formControlName="HusbandDOB" ngbDatepicker #dobH="ngbDatepicker"
+											[readonly]="true" [max]="maxDate_HDOB" [minDate]="minDate_HDOB"
+											[maxDate]="maxDate_HDOB" (ngModelChange)="changeHusbandDOB()"
+											(blur)="eligibleCoupleAgeDiff($event)" />
+										<div class="font-icon pl-4" (click)="dobH.toggle()"> <i
+												class="fa fa-calendar" id="HusbandDOBcalendarid"></i> </div>
+
+										<!-- <div *ngIf="submitted && f.HusbandDOB.errors"
+											class="invalid-feedback text-label error_msg">
+											<div class="error_msg1" *ngIf="f.HusbandDOB.errors.required">Date of Birth is
+												required of dHusband</div>
+										</div> -->
+									</div>
+									<div *ngIf="submitted && f.HusbandAge.errors" class="text-danger">
+										<div class="error_msg1" *ngIf="f.HusbandAge.errors.pattern"> Please enter Valid
+											Husband Current Age </div>
+									</div>
+									<div *ngIf="submitted && f.HusbandAge.errors" class="text-danger">
+										<div class="error_msg1" *ngIf="f.HusbandAge.errors.maxLength"> Please enter
+											Valid Husband Current Age </div>
+									</div>
+
+								</div>
+
+							</div>
+							<div class="col-md-12 pr-0 pl-0  float-left  mt-1">
+								<div class="col-sm-4 mt-1 text-right pr-1 float-left "> <label class="text-label"> Age of Husband
+										at Marriage : <div class="text-under2"> (in yrs) </div> </label> </div>
+								<div class="col-sm-8 float-left ">
+									<input class="form-control input-textsize text-right col-sm-3" type="text" maxlength="2"
+										id='HusbandMarriageAge' formControlName="HusbandMarriageAge" (keydown)="keydownfunction($event)"
+										[ngClass]="{ 'is-invalid': submitted && f.HusbandMarriageAge.errors }" />
+									<div *ngIf="submitted && f.HusbandMarriageAge.errors" class="text-danger">
+										<div class="error_msg1" *ngIf="f.HusbandMarriageAge.errors.pattern"> Please
+											enter Valid Husband Marriage Age </div>
+									</div>
+									<div *ngIf="submitted && f.HusbandMarriageAge.errors" class="text-danger">
+										<div class="error_msg1" *ngIf="f.HusbandMarriageAge.errors.maxLength"> Please
+											enter Valid Husband Marriage Age </div>
+									</div>
+								</div>
+
+							<!-- </div> -->
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			<div class="col-md-12 pr-0 pl-0  float-left  border col-sm-12 mt-2">
+				<div class=" col-md-6 float-left">
+					<div class="col-md-12 pl-0 pr-0 mt-3">
+						<div class="col-sm-4 mt-2 text-right pr-1 float-left "> <label class="text-label"> Religion of Woman :
+							</label> </div>
+						<div class="col-sm-3 float-left "> <select id="religionsid" name="religions" class="form-control"
+								formControlName="Religion">
+								<option value="" >Select</option>
+								<option *ngFor="let s of religions" [value]="s.id">{{s.name}} </option>
+							</select>
+						</div>
+						<div class="col-sm-2 mt-2 text-right pr-1 pl-1 float-left"> <label class="text-label"> Caste : </label>
+						</div>
+						<div class="col-sm-3 float-left"> <select #input4 class="form-control" formControlName="Caste" id='Casteid' (keydown.Tab)="onInputEntry($event, input11)">
+								<option value="" >Select</option>
+								<option [value]="1">SC</option>
+								<option [value]="2">ST</option>
+								<option [value]="99">Other</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-12 pl-0 pr-0 mt-3 float-left">
+						<div class="col-sm-4 mt-2 text-right pr-1 float-left"> <label class="text-label"> Address : <span> *
+								</span></label>
+						</div>
+						<div class="col-sm-8 float-left"> <textarea class="form-control input-textsize " type="textarea" #input5 (keydown.Tab)="onInputEntry($event, input13)"
+								id='Addressid' formControlName="Address" maxlength="100"
+								[ngClass]="{ 'is-invalid': submitted && f.Address.errors }"> </textarea>
+							<div *ngIf="submitted && f.Address.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+								<div class="error_msg1" *ngIf="f.Address.errors.required">Address is required</div>
+							
+								<div class="error_msg1" *ngIf="f.Address.errors.pattern"> Please enter Valid Address
+								</div>
+								<div class="error_msg1" *ngIf="f.Address.errors.maxLength">Address Character limit 100</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-md-12 pl-0 pr-0 mt-3 float-left">
+						<div class="main-01">
+							<div class="label-p"> <label class="text-label"> Total number of Children Born : </label>
+							</div>
+							<div class="input-p"> <input class="form-control input-textsize text-right pl-0 pr-0" #input15
+									type="number" id='Totalbornid' readonly formControlName="Totalborn"/> </div>
+						</div>
+						<div class="main-02">
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Male : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0" #input6
+										formControlName="MaleBorn" (change)="ChildBorn()" id='MaleBornid'>
+										<option [value]="0" selected>0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Female : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0"
+										formControlName="FemaleBorn" (change)="ChildBorn()" id='FemaleBornid' #input7>
+										<option [value]="0">0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Other : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0"
+										formControlName="OtherBorn" (change)="ChildBorn()" id='OtherBornid'  #input8 (keydown.Tab)="onInputEntry($event, input16)"> 
+										<option [value]="0">0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-md-12 float-left pl-0 pr-0 mt-3">
+						<div class="main-01">
+							<div class="label-p"> <label class="text-label"> No. of Live Children : </label> </div>
+							<div class="input-p"> <input class="form-control input-textsize text-right pl-0 pr-0" #input16
+									type="number" id='TotalLiveid' readonly formControlName="TotalLive" /> </div>
+						</div>
+						<div class="main-02">
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Male : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0" #input9
+										formControlName="MaleLive" (change)="ChildLivingM()" id='MaleLiveid'>
+										<option [value]="0">0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Female : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0" #input10
+										formControlName="FemaleLive" (change)="ChildLivingF()" id='FemaleLiveid'>
+										<option [value]="0">0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="part-1">
+								<div class="label-p2"> <label class="text-label"> Other : </label> </div>
+								<div class="input-p2"> <select class="form-control  pl-0 pr-0" #input11 (keydown.Tab)="onInputEntry($event, input14)"
+										formControlName="OtherLive" (change)="ChildLivingO()" id='OtherLiveid'>
+										<option [value]="0">0</option>
+										<option [value]="1">1</option>
+										<option [value]="2">2</option>
+										<option [value]="3">3</option>
+										<option [value]="4">4</option>
+										<option [value]="5">5</option>
+										<option [value]="6">6</option>
+										<option [value]="7">7</option>
+										<option [value]="8">8</option>
+										<option [value]="9">9</option>
+										<option [value]="10">10</option>
+
+										<option [value]="11">11</option>
+										<option [value]="12">12</option>
+										<option [value]="13">13</option>
+										<option [value]="14">14</option>
+										<option [value]="15">15</option>
+										<option [value]="16">16</option>
+										<option [value]="17">17</option>
+										<option [value]="18">18</option>
+										<option [value]="19">19</option>
+
+										<option [value]="20">20</option>
+										<option [value]="21">21</option>
+										<option [value]="22">22</option>
+										<option [value]="23">23</option>
+										<option [value]="24">24</option>
+										<option [value]="25">25</option>
+										<option [value]="26"> 26</option>
+										<option [value]="27">27</option>
+										<option [value]="28">28</option>
+										<option [value]="29">29</option>
+										<option [value]="30">30</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+				<div class=" col-md-6 float-left">
+					<div class="row mt-3">
+						<div class="col-sm-4 mt-2 text-right pr-1 "> <label class="text-label"> Mobile Number : <span> *
+								</span></label>
+						</div>
+						<div class="col-sm-3 ">
+							<!-- <input class="form-control input-textsize text-right" type="number"  /> -->
+							<input id="mobno" class="form-control input-textsize text-right" type="text" #input12
+								formControlName="mobno"  [readonly]="editableSearch" [ngClass]="{ 'is-invalid': submitted && f.mobno.errors }">
+								<div *ngIf="submitted && f.mobno.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+									<div class="error_msg1" *ngIf="f.mobno.errors.required">Mobile no is required</div>
+		
+									<div class="error_msg1" *ngIf="f.mobno.errors.maxLength">Please enter valid 10 digits mobile
+										no.</div>
+		
+									<div class="error_msg1" *ngIf="f.mobno.errors.pattern">Invalid mobile number</div>
+								</div>
+						</div>
+						<div class="col-sm-2 mt-1 text-right pr-1 pl-1 "> <label class="text-label"> Whose Mobile
+								:<span> * </span>
+							</label> </div>
+						<div class="col-sm-3"><select class="form-control pl-0 pr-0" formControlName="WhoseMobile" #input13 (keydown.Tab)="onInputEntry($event, input4)"
+								id='WhoseMobileid' [ngClass]="{ 'is-invalid': submitted && f.WhoseMobile.errors }">
+								<option value="" >Select</option>
+								<option *ngFor="let s of whosemobile" [value]="s.id">{{s.whosemobile}} </option>
+								<!-- <option value="W">Woman</option>
+								<option value="H">Husband</option>
+								<option value="N">Neighbour</option>
+								<option value="R">Relative</option>
+								<option value="O">Others</option> -->
+							</select>
+
+							<div *ngIf="submitted && f.WhoseMobile.errors" class="invalid-feedback error_msg col-md-12 float-left pl-0 pr-0">
+								<div class="error_msg1" *ngIf="f.WhoseMobile.errors.required"> Whose Mobile is required
+								</div>
+							</div>
+						</div>
+					</div>
+				
+					<div class="row mt-0">
+						<div class="col-sm-4 mt-2 text-right pr-1 "> <label class="text-label"> Category :</label>
+						</div>
+						<div class="col-sm-3 "> <select class="form-control" formControlName="Category" id='Categoryid' #input14 (keydown.Tab)="onInputEntry($event, input15)">
+								<option value="" >Select</option>
+								<option [value]="1">BPL</option>
+								<option [value]="2">APL</option>
+								<option [value]="3">Not Known</option>
+							</select>
+						</div>
+
+					</div>
+					<!-- <div *ngIf="showYoungestchild"> -->
+						<div class="row mt-3">
+							<div class="col-sm-4 mt-2 text-right pr-1 "> <label class="text-label"> Youngest Child (Age)
+									:</label> </div>
+							<div class="col-sm-3 "> <select class="form-control pl-0 pr-0" #input17
+									formControlName="YoungestChildYear" id='YoungestChildYearid'
+									(change)="CheckChildAge_Women()">
+									<option value="" >Year</option>
+									<option [value]="0">0</option>
+									<option [value]="1">1</option>
+									<option [value]="2">2</option>
+									<option [value]="3">3</option>
+									<option [value]="4">4</option>
+									<option [value]="5">5</option>
+									<option [value]="6">6</option>
+									<option [value]="7">7</option>
+									<option [value]="8">8</option>
+									<option [value]="9">9</option>
+									<option [value]="10">10</option>
+
+									<option [value]="11">11</option>
+									<option [value]="12">12</option>
+									<option [value]="13">13</option>
+									<option [value]="14">14</option>
+									<option [value]="15">15</option>
+									<option [value]="16">16</option>
+									<option [value]="17">17</option>
+									<option [value]="18">18</option>
+									<option [value]="19">19</option>
+
+									<option [value]="20">20</option>
+									<option [value]="21">21</option>
+									<option [value]="22">22</option>
+									<option [value]="23">23</option>
+									<option [value]="24">24</option>
+									<option [value]="25">25</option>
+									<option [value]="26"> 26</option>
+									<option [value]="27">27</option>
+									<option [value]="28">28</option>
+									<option [value]="29">29</option>
+									<option [value]="30">30</option>
+								</select>
+							</div>
+
+
+
+							<div class="col-sm-3 "> <select class="form-control pl-0 pr-0"  #input18
+									formControlName="YoungestChildMonth" id='YoungestChildMonth'>
+									<option value="" >Month</option>
+									<option [value]="0">0</option>
+									<option [value]="1">1</option>
+									<option [value]="2">2</option>
+									<option [value]="3">3</option>
+									<option [value]="4">4</option>
+									<option [value]="5">5</option>
+									<option [value]="6">6</option>
+									<option [value]="7">7</option>
+									<option [value]="8">8</option>
+									<option [value]="9">9</option>
+									<option [value]="10">10</option>
+
+									<option [value]="11">11</option>
+									
+								</select>
+							</div>
+						</div>
+						<div class="row mt-3">
+							<div class="col-sm-4 mt-2 text-right pr-1 "> <label class="text-label"> Youngest Child (Sex)
+									:</label> </div>
+							<div class="col-sm-3 "> <select class="form-control" formControlName="YoungestChildSex"  #input19
+									id='YoungestChildSexid'>
+									<option value="" >Select</option>
+									<option *ngFor="let s of childgender" [value]="s.id">{{s.childgender}} </option>
+									<!-- <option value="M">Male</option>
+									<option value="F">Female</option>
+									<option value="O">Other</option> -->
+
+								</select>
+							</div>
+						</div>
+
+					<!-- </div> -->
+				</div>
+			</div>
+
+			<section class="col-md-12 float-left pl-0 pr-0">
+				<div class="mx-auto mt-3 mb-3 col-md-6 pl-0 pr-0 text-center">
+					<!-- <a class="btn btn-success radius-p mr-2" href="#">Save </a> -->
+					<!-- <button type="submit" class="btn btn-success radius-p mr-2" (click)="onSubmit()">Save</button> -->
+					<!-- <a class="btn btn-danger radius-p mr-2 " href="/home/ectrack"> Continue </a> -->
+					<!-- <a class="btn btn-primary radius-p " href="#" >New Entry</a> -->
+					<button type="submit" #input20 class="btn btn-success float-left radius-p mr-2 mt-1 mb-1" id='save' (keydown.Tab)="onInputEntry($event, input20)">Save</button>
+					<!-- <a class="btn btn-danger radius-p mr-2 " href="/home/ectrack"> Continue </a> -->
+					<a class="btn btn-danger radius-p float-left mr-2 mt-1 mb-1" #input21 id='Continue' (click)="onContinue()"
+						*ngIf="btncontinue">Continue</a>
+					<a class="btn btn-primary radius-p float-left mt-1 mb-1" id='NewEntry' #input22 (click)="onreset()"> New Entry </a>
+					<!-- <button class="btn btn-primary radius-p " (click)="onreset()">New Entry</button> -->
+				</div>
+			</section>
+			
+		</form>
+
+	</div>
+</div>
+<div class="col-md-12 float-left mt-5 mb-5"></div>

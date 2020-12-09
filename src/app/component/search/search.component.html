@@ -1,0 +1,86 @@
+<fieldset class="border pl-1 pr-1 mt-2 ">
+	<legend class="text-primary pl-2 leg-border mb-0 text-13"><i class="fa fa-search"></i>Search :
+	</legend>
+<div class="col-md-12 bg-search text-dark ml-0 float-left text-white pb-1 pt-1 text-12">
+    <form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="onSubmit(searchForm)">
+
+ <!-- <h1>{{searchForm.valid}}</h1> -->
+
+
+   <div class="col-md-9  float-left pl-0 pr-0 text-12 ">
+    
+     <div class="col-md-3  float-left">
+        <div class="col-sm-12 mt-2 float-left pl-0 mr-0 pr-0"> <label  class="text-label">Woman Name :  <span> * </span>  </label>  </div>
+       <div class="col-sm-12 float-left pl-0  pr-0 mr-0 ml-0" id="" name="">  <input class="form-control input-textsize" type="text" placeholder="" formControlName="PWfirstname" 
+        [ngClass]="{'is-invalid': submitted && f.PWfirstname.errors}" /> 
+        <div *ngIf="submitted && f.PWfirstname.errors" class="invalid-feedback">
+          <div class="error_msg1" *ngIf="f.PWfirstname.errors.required">
+            <p class="error_msg">Please Enter Woman Name</p>
+          </div>
+          <div class="error_msg1" *ngIf="f.PWfirstname.errors.pattern">
+            <p class="error_msg">Please Enter Correct Woman Name</p>
+          </div>  
+      </div>
+      
+      </div>
+       </div>
+    
+    <div class="col-md-3 float-left pl-0 pr-0">
+        <div class="col-sm-12 mt-2 float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label"> Husband Name : <span> * </span>   </label>  </div>
+       <div class="col-sm-9 float-left pl-0  pr-0 mr-0 ml-0"><input class="form-control input-textsize" type="text" placeholder="" formControlName="HusbandFirstname"
+        [ngClass]="{'is-invalid': submitted && f.HusbandFirstname.errors}" />
+		
+			  
+        <div *ngIf="submitted && f.HusbandFirstname.errors" class="invalid-feedback">
+		<div class="error_msg1" *ngIf="f.HusbandFirstname.errors.required">
+            <p class="error_msg">Please Enter Husband Name</p>
+          </div>
+          <div class="error_msg1" *ngIf="f.HusbandFirstname.errors.pattern">
+            <p class="error_msg">Please Enter Correct Husband Name</p>
+          </div>  
+      </div>
+	  
+      </div>
+         <div class="form-check float-left  col-sm-2 mt-1 ml-2">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1"  (change)="PWaccountnoDisable($event)">
+            <label class="form-check-label check-text" id="exampleCheck1" for="exampleCheck1"> <small> NA</small></label>
+        </div> 
+        
+    </div>
+  
+       <!-- <div class="col-md-3 float-left ">
+
+        <div class="col-sm-12 mt-2  float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label "> Date Of Birth :  <span> * </span>  </label>  </div>
+       <input class="form-control  bg-white text-right pr-4 input-textsize" type="text" readonly formControlName="PWDOB" placeholder="DD/MM/YYYY"
+         ngbDatepicker #d="ngbDatepicker"   [minDate]="minDate"  [maxDate]="maxDate" /> 
+        <div class="font-icon pl-3" (click)="d.toggle()" style="Z-index:999"> 
+           <i class="fa fa-calendar"></i> 
+           </div>  
+
+
+      </div> -->
+     <div class="col-md-3  float-left">
+        <div class="col-sm-12 mt-2  float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label "> Mobile : <span> * </span> </label>  </div>
+       <div class="col-sm-12 float-left pl-0  pr-0 mr-0 ml-0"> <input class="form-control input-textsize text-right" type="text" placeholder="" formControlName="mobno" 
+        [ngClass]="{'is-invalid': submitted && f.mobno.errors}" />
+
+        <div *ngIf="submitted && f.mobno.errors" class="invalid-feedback">
+          <div class="error_msg1" *ngIf="f.mobno.errors.required">
+            <p class="error_msg">Please Enter Mobile Number</p>
+          </div> 
+          <div class="error_msg1" *ngIf="f.mobno.errors.pattern">
+            <p class="error_msg">Enter Correct Mobile Number</p>
+          </div>  
+      </div>
+
+</div>
+    </div> 
+    
+        </div>
+        <div class="col-md-3 pr-0 pl-0 float-left mt-4">
+            <button type="submit" class="btn btn-danger  bordr-radius text-center btn-sm col-md-5 mr-2" id='save' >Search </button>
+            <a (click)="onreset()" class="btn btn-info bordr-radius text-center btn-sm col-md-5" id='clear'>Clear </a>
+        </div>
+      </form>
+    </div>
+    </fieldset>

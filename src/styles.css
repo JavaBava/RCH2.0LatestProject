@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&display=swap');
+body{
+font-family: 'Montserrat', sans-serif !important;
+background-color: #f6f7fb;
+}
+a{text-decoration:none;}
+.blue-side {   background: #274a80;   padding-bottom: 2%;}
+.bg-green { background: #1acca3;}
+.btn-darkblue{background:#274a80 !important; color:#fff !important;}
+.bg-newgrey{ background:#f6f7fb !important; float: left;}
+.width-new {   width: 31%;    float: left;}
+.bg-green{ background:#1acca3 !important;}
+.bg-greentop{ background:#05bf93 !important;}
+.bg-orange{ background:#ffa334 !important;}
+.bg-blue { background:#2757bf;}
+.text-13 { font-size: 13px;  font-weight: 600;}
+.text-18 {  font-size: 18px;    font-weight: 600;}
+.text-16 {  font-size: 16px;    font-weight: 600;}
+.text-14 { font-size: 14px;   font-weight: 600;}
+.text-12 { font-size: 12px;   font-weight: 600;}
+.text-11 { font-size: 11px;   font-weight: 600;}
+.text-10 { font-size: 10px;   font-weight: 600;}
+.text-label span { color: red;}
+.input-new { margin-left: 7px;}
+.text-under { text-align: right;  font-size: 10px;  color: #068ad9;  font-weight: 400;  margin-top: -7px;}
+.text-under2 { text-align: right;  font-size: 10px;  color: #068ad9;  font-weight: 400;    float: right;
+    margin-left: 4px;    margin-top: 3px;}
+.font-icon {    float: right;    margin-top: -32px;   margin-right: 4px;	position: relative;}
+.margin-p {    text-align: right;    margin-top: 1px;    float: right;}
+.input-p {    float: left;    width: 21%;    margin-top: 6px;    margin-left: 11px;}
+.label-p {    float: left;    width: 64%;    text-align: right;}
+.main-01 {    width: 32%;    float: left;}
+.main-02 {    width: 68%;    float: left;}
+.part-1 {    width: 32%;    margin-left:0.5%;	float:left;}
+.label-p2 {    float: left;    width: 49%;    margin-top: 6%;}
+.input-p2 {    width: 42%;    float: left;    margin-left: 4%;}
+.radius-p {    border-radius: 22px;    padding: 7px 40px;}
+.leg-border{ width:auto !important;}
+.form-control {    font-size: 13px;    padding-left: 2px;    color: #000 !important;    font-weight: 500;}
+.container.bg {    padding: 0;    margin: 0 auto;}
+.top-bg2 {    width: 100%;    float: left;    background: #163FBB;    margin-bottom: 9px;    min-height: 6px;}
+.right-logo {    float: right;    margin-left: 20px;}
+.bg-bluee { background:#0552a2;}
+.text-nav li a:hover:active  {   border-bottom: 5px solid #00f3ff;    padding-bottom: 0px;}
+.text-update {font-size:14px; font-weight:500; }
+.text-bread { font-size:12px;}
+.rounded-blue { border-radius: 30px;  text-align: center;   margin: 0 auto;    margin-right: auto;
+        margin-left: auto;    padding: 5px 26px;   font-size: 19px;    font-weight: 500;}
+.pop-li a:hover:active:focus:focus-within:visited {  background: #ffa334;}
+.type-radio {  border-radius: 20px;   font-weight: 500;    border: 1px solid #c3c3c3;
+    padding: 8px 15px 0px 15px;    font-size: 15px;}
+.set-hier {   text-align: center;    border-bottom:2px solid #ffffff75;}
+.child-left { flex: 1;}
+.child-right { flex: 9;}
+.news-content { float: left; width: 100%;}
+.thumbnail { float: left; width: 20%;}
+.news-content {  float: left;  width: 100%;  margin-top: 12px;    border-bottom: 1px solid #cecbcb;}
+.thumbnail { width: 18%;}
+.thumbnail img {  width: 85%;}
+.news-cont {  width: 78%;}
+.footer-fix {   position: fixed;   bottom: 0; }
+ .login-card .login-btn {  background-color: #f27d00; color: #fff;}
+.page-height { min-height: 550px;}
+.box-shadow-hover:hover { box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);  }
+  .box-height{height: 195px; }
+  .opacity-img { opacity:0.6; }
+  .coming-soon {  font-size: 16px; color: #f00;}
+.p-scroll { overflow-x: scroll; overflow-y:scroll; width: 1100px; }
+.form-control.is-invalid, .was-validated .form-control:invalid { background-image: none !important;}
+.h-pointer { cursor: pointer; }
+.mobile-nav{display: none;}
+.desktop-screen { display:block;}
+.desktopscreen {
+  float: left;
+  position: relative;
+}
+.bordr-radius { border-radius: 22px;}
+
+ @media only screen and (max-width: 600px) and (min-width: 320px)  {
+    .width-new {  width: 100%;   }
+    .page-height {  height:auto; }
+    .mother-img {display: none;}
+    .logo-m img {width: 100%; text-align: center; margin-bottom: 1%;   }
+    .nhm-logo{ display:none;}
+    .box-cont{display: block !important;}
+    .data-box{ display: block !important;}
+	.footer-fix {    position:relative; bottom:auto; }
+	.logo { width: 75%;    margin: 0 auto;}
+    .mobile-nav{display:block;}
+    .desktop-screen { display:none;}
+    .main-01 {    width: 100%;  }
+    .main-02{ width: 100%;}
+    .part-1{ width: 100;}
+    .label-p {  width: 43%; float: left; text-align: left; }
+    .input-p { width: 50%; }
+    .mobilescreen {   display:block;  }
+    .desktopscreen {  display:none;}
+  }
+  @media only screen and (max-width: 768px) and (min-width: 601px)  {
+    .width-new {  width: 100%;   }
+    .page-height {  height:auto; }
+    .mother-img {display: none;}
+    .logo-m img {width: 100%; text-align: center; margin-bottom: 1%;   }
+    .nhm-logo{ display:none;}
+    .box-cont{display: block !important;}
+    .data-box{ display: block !important;}
+	.footer-fix {    position:relative; bottom:auto; }
+	.logo { width: 75%;    margin: 0 auto;}
+    .mobile-nav{display:block;}
+    .desktop-screen { display:none;}
+    .main-01 {    width: 100%;  }
+    .main-02{ width: 100%;}
+    .part-1{ width: 100;}
+    .label-p {  width: 43%; float: left; text-align: left; }
+    .input-p { width: 50%; }
+    .mobilescreen {   display:block;  }
+    .desktopscreen {  display:none;}
+  }

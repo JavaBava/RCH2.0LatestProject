@@ -1,0 +1,91 @@
+<div class="container mt-3">
+    <div class="card login-card mb-5">
+        <div class="brand-wrapper row ml-2 pt-2">
+            <img src="assets/images/logo-rch.png" alt="logo" class="logo">
+          </div>
+      <div class="row no-gutters">
+        <div class="col-md-5 mother-img">
+          <img src="assets/images/mother-child.jpg" alt="login" class="login-card-img">
+        </div>
+        <div class="col-md-7">
+          <div class="card-body mt-3 ">
+
+            <p class="login-card-description  bg-primary text-white pt-2 pb-2 pl-2 ">Sign in RCH 2.0</p>
+			
+            <ngb-alert type="danger" *ngIf="!showCaptchVerifiedMsgWrong" (close)="showCaptchVerifiedMsgWrong=true" ><div class="error_msg"><div class="error_msg1">Wrong Captcha Code</div></div></ngb-alert>
+			
+			 <ngb-alert type="danger" *ngIf="!showNotFoundMsg" (close)="showNotFoundMsg=true"  class="error_msg1"><div class="error_msg"><div class="error_msg1"> {{vmsg}}</div></div></ngb-alert>
+            
+           
+
+            <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()"  autocomplete="off">
+               
+                <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-4 col-form-label text-label float left">User name : <span> * </span> </label>
+                  <div class="col-sm-7">
+                    <input type="text"  class="form-control" id="username" formControlName="username" placeholder="Enter Username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback error_msg">
+                      <div class="error_msg1" *ngIf="f.username.errors.required">User Name is required</div>
+                  </div>
+                 
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-4 col-form-label text-label">Password : <span> * </span></label>
+                  <div class="col-sm-7">
+                    <input type="password" class="form-control" name="password" id="password" formControlName="password" placeholder="Enter Your Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback error_msg">
+                      <div class="error_msg1" *ngIf="f.password.errors.required">Password is required</div>
+                  </div>
+                  </div>
+                </div>
+
+
+					<div class="form-group row">
+            <label for="staticEmail" class="col-sm-4 col-form-label text-label"></label>
+
+             <div class="col-sm-3">
+ 
+ <canvas #canvasEl width=100 height=50 class="float-left"></canvas>
+ <i class="fa fa-refresh text-16 float-left mt-3 h-pointer ml-2" aria-hidden="true" (click)="changeCaptcha()"></i>
+ 
+
+                
+            </div>
+
+
+        </div>
+
+        <div class="form-group row">
+          <label for="staticEmail" class="col-sm-4 col-form-label text-label">Captcha : <span> * </span></label>
+
+           <div class="col-sm-7">
+
+              <input type="text" id="capthaid" class="form-control" formControlName="capctha" [ngClass]="{ 'is-invalid': submitted && f.capctha.errors }">
+
+<div *ngIf="submitted && f.capctha.errors" class="invalid-feedback error_msg">
+                  <div class="error_msg1" *ngIf="f.capctha.errors.required">Captcha is required</div>
+              </div>
+          </div>
+
+
+      </div>
+
+                
+               
+                  <div class="form-group row">
+                    <div class="col-sm-6 mx-auto">
+                      <button type="submit"  class="btn btn-block login-btn mb-4 radius-p">Sign In</button>
+                    </div>
+                  </div>              
+              </form>
+              <a href="/forgotpassword" class="forgot-password-link">Forgot password?</a>
+              <p class="login-card-footer-text">Don't have an account? <a href="/registration" class=" forgot-password-link">Register here</a></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <app-footer></app-footer>

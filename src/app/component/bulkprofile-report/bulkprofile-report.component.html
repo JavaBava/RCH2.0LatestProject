@@ -1,0 +1,42 @@
+<app-hierarchy (usehierarchy)="usehierarchyHandler($event)"></app-hierarchy>
+<div class="bg-white col-md-12 float-left pl-0 pr-0">
+<div  class="col-md-4 pl-0 pr-0 mx-auto mt-3">
+	
+   <div class="col-md-12 flat-left pl-0 pr-0 login-card">
+    <button   (click)="getebulkprofiledata()" class="btn login-btn login-card float-left radius-p mr-1">Submit</button>
+	<button   (click)="downloadpdf()" class="btn btn-success float-left radius-p">Download</button>
+   </div>
+</div>
+
+<div class=" col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-right"> Profile Entry Data not entered for Financial Year: 2020-21</div>
+
+<div class="text-center col-md-12 pl-0 pr-0 mt-2 float-left ">
+	<table class="table border" >
+  <thead class="thead-dark text-14">
+    <tr>
+	  <th scope="col"> S.No. </th>
+	  <th scope="col"> Health Facility </th>
+      <th scope="col">Health Sub Facility</th>
+      <th scope="col">Health Village</th>
+      
+	  
+	 
+    </tr>
+  </thead>
+  <tbody class="text-14">
+	<tr *ngFor="let data of bulkprofiledatalist; let i=index">
+		<th scope="row">{{i+1}}</th>
+		<td style="text-align: left;">{{data.namePhc}}</td>
+		<td style="text-align: left;">{{data.nameSubPhc}}</td>
+		<td style="text-align: left;">{{data.namevillage}}</td>
+		
+	
+		
+	</tr>
+  </tbody>
+</table>
+ 
+	</div>
+
+	</div>	
+	<div class="col-md-12 float-left mt-5 mb-5"></div>

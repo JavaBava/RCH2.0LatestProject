@@ -1,0 +1,15 @@
+
+<div class="container-fluid flex-row mx-auto ml-0 mr-0 pl-0 pr-0 d-flex">
+
+    <div class=" blue-side  ml-0 mr-0 flex-fill child-left">
+     <app-side-bar [style.display]="isSidebarVisible"></app-side-bar>
+    </div>
+      <div class="ml-0 mr-0 pl-0 pr-0 flex-fill child-right">
+        <app-header (SideBarVisiblity)="SideBarVisiblityHandler($event)"></app-header>
+          <div class="bg-newgrey col-md-12"> 
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+    </div>
+   
+  

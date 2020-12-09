@@ -1,0 +1,77 @@
+
+<div class="col-md-12 mobile-nav  float-left pl-0 pr-0">
+  <div class="float-left ">		 
+       <div ng-sidebar-content>
+        <button (click)="ClickSidebar()"> <i class="fa fa-bars "></i> </button>
+  
+      </div>
+  </div>
+  <div class="logo text-center float-left"> <a href="/home" alt="Logo"> <img src="assets/images/logo-mob.png"> </a> </div>
+  <div class="float-right "> 	 
+  <div ng-sidebar-content>
+      <button (click)="_toggleHeader()"> <i class="fa fa-bars"></i></button>
+  
+    </div>
+    
+     <!-- Container for header + page content -->
+  <ng-sidebar-container style="height:250px; width:180px;  position:absolute; right:0; float: left;" class="">
+  
+    <!-- A sidebar -->
+    <ng-sidebar [(opened)]="_openedheader" position="top" class="bg-warning float-left" >
+      <ul class="navbar-nav text-right bg-warning float-left pr-3 text-13">
+        <li class="nav-item ">  <a routerLink ="/home" class="text-white nav-link"> Home </a></li>
+          <li class=" nav-item active pl-2 pr-2"> <a routerLink ="/home/dataentry" class="text-white nav-link"> Data Entry </a> </li>
+          <li class=" nav-item active pl-2 pr-2"> <a routerLink ="/home/report" class="text-white nav-link"> Reports </a> </li>
+          <li class="nav-item active pl-2 pr-2"> <a routerLink ="/home/commonmaster" class="text-white nav-link"> Common Master </a> </li>
+          <li class="nav-item active pl-2 pr-2"> <a routerLink ="/home/dashboard" class="text-white nav-link"> Dashboard  </a> </li>
+      </ul>
+    </ng-sidebar>
+  
+    <!-- Page content -->
+    
+  </ng-sidebar-container>
+     
+     <!-- bs code end here         -->	 
+  </div>
+  
+  </div>
+  
+  <div class="bg-primary col-md-12 float-left pl-0 pr-0 desktop-screen "> 
+  <div class="col-md-12 float-left pl-0 pr-0"> 
+  
+    <nav class="navbar navbar-expand-lg pl-0 pr-0 pt-1 pb-1">
+     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-3 ">
+        <li class="nav-item active pl-2 pr-2 menu-left" (click)="SideBarVisibilityChange()"> <a  class="text-white nav-link"> <i class="fa fa-bars"></i></a> </li>
+        <li class="nav-item active pl-2 pr-2 text-13"> <a routerLink ="/home" class="text-white nav-link"> Home </a> </li>
+        
+        <li class=" nav-item active pl-2 pr-2 text-13"> <a routerLink ="/home/dataentry" class="text-white nav-link"> Data Entry </a> </li>
+        <li class=" nav-item active pl-2 pr-2 text-13"> <a routerLink ="/home/report" class="text-white nav-link"> Reports </a> </li>
+        <li class="nav-item active pl-2 pr-2 text-13"> <a routerLink ="/home/commonmaster" class="text-white nav-link"> Common Master </a> </li>
+        <li class="nav-item active pl-2 pr-2 text-13"> <a routerLink ="/home/dashboard" class="text-white nav-link"> Dashboard  </a> </li>
+      </ul>
+      </div>
+    
+    
+  
+    <div class="float-right text-white ">
+   
+        <div class="dropdown float-left mr-2">
+          <div ngbDropdown class="d-inline-block ">
+          <button class="btn btn-outline-primary text-white text-13" id="dropdownBasic1" ngbDropdownToggle>   <i class="fa fa-user-circle text-18 float-left mr-2 mt-1"></i>  <span class="dropbtn float-left mr-2">{{username}}</span></button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item" (click)="logout()">Logout <i class="fa fa-power-off"></i></button>
+          </div>
+          </div>
+        </div>
+    </div>
+    </nav>
+    </div>
+    
+    
+    
+  </div>
+  
+  
+  
+  <div class="clearfix"> </div>

@@ -1,0 +1,186 @@
+<div class="shadow-sm  bg-white col-md-12 float-left bg-white border rounded float-left text-center   pt-1 pb-1  mt-1 mb-2 ">
+    <div class="col-md-2 float-left mt-1 "> <select class="form-control text-12 ">
+      <option> Chandigarh </option>
+      </select>
+    </div>  
+    <div class=" float-left  type-radio text-12 "> <label class="mr-2 float-left text-12"> Type of Area</label> 
+      <div class="float-left">
+		<input type="radio" class="radio mr-2" name="x" value="r" id="y" checked="true" (change)="changeRural()" />
+		
+        <label class="mr-2 text-12" for="y">Rural</label>
+        <input type="radio" class="radio mr-2" name="x" value="z" id="z" (change)="changeUrban()"/>
+        <label for="z"> Urban</label>
+      </div>
+    </div>
+  </div>
+  <fieldset class="border pl-1 pr-1 ">
+	<legend class="text-primary pl-2 leg-border mb-0">
+		<h6> <i class="fa fa-street-view"></i>Set Hierarchy  : </h6>
+	</legend>
+<div class="col-md-12 bg-greentop ml-0 float-left text-white pb-1 pt-2 mb-1" *ngIf="div1">
+	<div class="col-md-12  float-left  mt-1">
+	<!--	<div class="col-md-3 pr-0 pl-0  float-left">
+	 <div class="col-sm-12   float-right pl-0 mr-0 pr-0 set-hier"> <h5> Set Hierarchy :</h5>     </div> 
+
+ </div>-->
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label text-13"> State :  </label>  </div>
+			<div class="col-sm-6 float-left  pr-0 mr-0 ml-0"><select id="stateCode"  [(ngModel)]="selectedState"  (change)="changeDistrict()" name="stateCode" class="form-control"  [disabled]="stateDisabled">
+				<option value="" hidden>Select </option>
+				  <option *ngFor ="let s of state" [ngValue]="s.stateId">{{s.nameE}}</option>
+			</select>
+			</div>
+		</div>
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> District :  </label>  </div>
+			<div class="col-sm-6 float-left   pr-0 mr-0 ml-0"><select id="districtCode"  [(ngModel)]="selectedDistrict"  (change)="changeHealthBlock()" name="districtCode" class="form-control" [disabled]="districtDisabled" >
+				<option value="" hidden>Select </option>
+				  <option *ngFor ="let d of district" [ngValue]="d.dcode">{{d.nameG}}</option>
+			</select>   </div> 
+		</div>
+		 <div class="col-md-3 pr-0 pl-0  float-left">
+			<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13">Taluka :  </label>  </div>
+		   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0"><select id="talukaCode"  [(ngModel)]="selectedTaluka" (change)="changeVillage()" name="talukaCode" class="form-control"  [disabled]="talukaDisabled">
+			   <option value="" disabled>Select</option>
+				 <option *ngFor ="let h of talukas" [ngValue]="h.tcode">{{h.nameE}}</option>
+					 </select></div>
+	   </div> 
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Health Block : </label>  </div>
+			<div class="col-sm-6 float-left  pr-0 mr-0 ml-0"><select id="healthBlockCode" [(ngModel)]="selectedHealthBlock" (change)='changeHealthPHC()' name="healthBlockCode" class="form-control" [disabled]="blockDisabled" >
+				<option value="" hidden>Select </option>
+				  <option *ngFor ="let h of healthBlock" [ngValue]="h.bid">{{h.nameE}}</option>
+					  </select> </div>
+		</div>
+		
+	</div>
+<div class="col-md-12   float-left mt-1">
+	<div class="col-md-3 pr-0 pl-0  float-left">
+		<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Health Facility Type :  </label>  </div>
+	   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0">   <select id="healthFacilityType" [(ngModel)]="selectedFacilityType" (change)="changeFacilityType()" name="healthFacilityType" class="form-control" [disabled]="facilityTypeDisabled" >
+		<option value="" hidden>Select </option>
+		  <option *ngFor ="let b of FacilityType" [ngValue]="b.typeId">{{b.typeName}}</option>
+				</select>   </div>
+	 </div>
+	
+		<div class="col-md-3 pr-0 pl-0  float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Health Facility :  </label>  
+		
+	</div>
+   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0">   <select id="healthFacilityCode" [(ngModel)]="selectedFacilityCode" (change)="changeHealthSubCentres()" name="healthFacilityCode" class="form-control" [disabled]="facilityDisabled">
+	<option value="" hidden>Select </option>
+	  <option *ngFor ="let b of healthPHC" [ngValue]="b.pid">{{b.nameE}}</option>
+			</select>  
+			<div class="text-white error_msg  error_msg1 text-11 mt-1" *ngIf="facilityExists">No facility available</div>
+		</div>
+		
+ </div>
+ <div class="col-md-3 pr-0 pl-0  float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13">Health SubFacility :  </label>  </div>
+   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0"><select id="healthSubCentreCode" [(ngModel)]="selectedSubCentre"  (change)="changeVillage()" name="healthSubCentreCode" class="form-control" [disabled]="subcenterDisabled" >
+	<option value="" hidden>Select </option>
+	  <option *ngFor ="let h of healthSubcentres" [ngValue]="h.sid">{{h.nameE}}</option>
+</select>   
+<div class="text-white error_msg  error_msg1 text-11 mt-1" *ngIf="SubfacilityExists">No Sub facility available</div>
+</div>
+</div>
+		<!-- <div class="col-md-3 pr-0 pl-0">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13">Taluka :  </label>  </div>
+			<div class="col-sm-6 float-left   pr-0 mr-0 ml-0"><select id="talukaCode"  [(ngModel)]="selectedTaluka" (change)="changeVillage()" name="talukaCode" class="form-control" >
+				<option value="" disabled>Select Taluka</option>
+				  <option *ngFor ="let h of talukas" [ngValue]="h.tcode">{{h.nameE}}</option>
+					  </select></div>
+		</div>	 -->
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Village : </label>  </div>
+			<div class="col-sm-6 float-left  pr-0 mr-0 ml-0"> <select id="villageCode"  [(ngModel)]="selectedVillage"  (change)="getVillage()" name="villageCode" class="form-control" >
+				<option value="" hidden>Select </option>
+				  <option *ngFor ="let h of village" [ngValue]="h.vcode">{{h.vName}}</option>
+					  </select> 
+					  <div class="text-white text-11 mt-1 error_msg  error_msg1" *ngIf="villageExists">No Village available</div>
+					</div>
+		</div>
+		
+	</div>
+</div>
+  </fieldset>
+<!-- agjhdsghgcj
+ -->
+
+ <div class="col-md-12 bg-greentop ml-0 float-left text-white pb-1 pt-1"*ngIf="div2">
+	<div class="col-md-12  float-left  mt-1">
+	<!-- 	<div class="col-md-3 pr-0 pl-0  float-left">
+	<div class="col-sm-12   float-right pl-0 mr-0 pr-0 set-hier"> <h5><i class="fa fa-street-view"></i> Set Hierarchy :</h5>     </div>
+
+ </div> -->
+ <div class="col-md-3 pr-0 pl-0  float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label text-13"> State :  </label>  </div>
+   <div class="col-sm-6 float-left  pr-0 mr-0 ml-0"><select id="stateCode"  [(ngModel)]="selectedState"  (change)="changeDistrict()" name="stateCode" class="form-control"  [disabled]="stateDisabled">
+	<option value="" disabled>Select State</option>
+	  <option *ngFor ="let s of state" [ngValue]="s.stateId">{{s.nameE}}</option>
+</select>
+   </div>
+</div>
+<div class="col-md-3 pr-0 pl-0  float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> District :  </label>  </div>
+   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0"><select id="districtCode"  name="districtCode" class="form-control"  >
+	   <option value="" disabled>Select District</option>
+		 <option > </option>
+   </select>   </div>
+</div>
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13" > Urban Local<br/> Body : </label>  </div>
+			<div class="col-sm-6 float-left  pr-0 mr-0 ml-0"> <select class="form-control" id='ULB'>
+	  <option>Select </option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>4</option>
+	  </select>  </div>
+		</div>
+		<div class="col-md-3 pr-0 pl-0  float-left">
+			<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Health Facility Type :  </label>  </div>
+		   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0">   <select id="healthFacilityType" [(ngModel)]="selectedFacilityType" (change)="changeFacilityType()" name="healthFacilityType" class="form-control" [disabled]="facilityTypeDisabled" >
+			<option>Select </option>
+	  <option>2</option>
+					</select>   </div>
+		 </div>
+	</div>
+	<div class="col-md-12 float-left  mt-0">
+		<div class="col-md-3 pr-0 pl-0 float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Health facility :  </label>  </div>
+   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0">  <select id="healthFacilityCode" name="healthFacilityCode" class="form-control"  >
+	<option value="" disabled>Select Health Facility</option>
+  <option > </option>
+			</select>  </div>
+ </div>
+ <div class="col-md-3 pr-0 pl-0 float-left">
+	<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13">Ward :  </label>  </div>
+   <div class="col-sm-6 float-left   pr-0 mr-0 ml-0"> <select class="form-control" id='Ward'>
+<option>Select </option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select>  </div>
+</div> 
+		<div class="col-md-3 pr-0 pl-0 float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13">Coverage Area :  </label>  </div>
+			<div class="col-sm-6 float-left   pr-0 mr-0 ml-0"> <select class="form-control" id='CoverageArea'>
+	  <option>Select </option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>4</option>
+	  </select>  </div>
+		</div>	
+		<div class="col-md-3 pr-0 pl-0 float-left">
+			 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 ml-0"> <label  class="text-label text-13"> Catchment Area : </label>  </div>
+			<div class="col-sm-6 float-left  pr-0 mr-0 ml-0"> <select class="form-control" id='CatchmentAreas'>
+	  <option>Select </option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>4</option>
+	  </select>  </div>
+		</div>
+		
+	</div>
+</div>
+

@@ -1,0 +1,942 @@
+<app-hierarchy (usehierarchy)="usehierarchyHandler($event)"></app-hierarchy>
+
+<div class="float-left col-md-12 error_msg pb-0" *ngIf="showNotFoundMsg">
+  <div class="col-md-3 mt-1 pt-2 text-12 alert-danger float-left error_msg pb-0">
+    <label class="error_msg1 pb-0" role="alert">{{msg}}</label>
+  </div>
+</div>
+
+ 
+<div class="container float-left col-md-6 mt-2 pl-0 pr-0">
+
+  <ul class="step d-flex flex-nowrap text-12 ml-0 pl-0">
+    <li class="step-item" (click)="beneficiaryDetails()">
+      <span class="">Beneficiary Details</span> </li>
+
+    <li class="step-item active">
+      <span class="">Tracking of Eligible Couples</span> </li>
+  </ul>
+
+</div>
+
+<div class="col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left"> Eligible Couple Tracking
+</div>
+<div class="border bg-white mt-3 float-left" *ngIf="fill_hierarchy">
+<form class="text-13 float-left col-md-12 pl-0 pr-0" [formGroup]="ectForm" (ngSubmit)="submitECTform(ectForm)">
+
+    <div class="row  mt-3">
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> RCH ID No. :
+          </label> </div>
+        <div class="col-sm-6 float-left "> <input type="text" id="registrationNo"
+            class="form-control col-md-12 text-right pl-0" formControlName="registrationNo" readonly /> </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Wife Name : </label>
+        </div>
+        <div class="col-sm-6 float-left"> <input type="text" id="nameWife" class="form-control"
+            formControlName="nameWife" readonly />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Wife Age : </label>
+        </div>
+        <div class="col-sm-6 float-left"> <input type="text" id="wifeAge" class="form-control text-right"
+            formControlName="wifeAge" readonly /> </div>
+      </div>
+    </div>
+    <div class="row  mt-3">
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Husband Name :
+          </label> </div>
+        <div class="col-sm-6 float-left"> <input type="text" id="nameHusband" class="form-control"
+            formControlName="nameHusband" readonly /> </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile No. :
+          </label> </div>
+        <div class="col-sm-6 float-left "> <input type="text" id="mobileNo"
+            class="form-control pl-0  col-md-12 text-right" formControlName="mobileNo" readonly /> </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Visit No. : </label>
+        </div>
+        <div class="col-sm-6 float-left"> <input type="text" id="visitNo" class="form-control text-right" readonly
+            formControlName="visitNo" /> </div>
+      </div>
+    </div>
+    <div class="row  mt-3">
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Financial year :
+            <span> * </span> </label> </div>
+        <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="financialYr"
+            formControlName="financialYr" readonly />
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Date of Registration
+            : <span> * </span> </label> </div>
+        <div class="col-sm-6 float-left"> <input class="form-control input-new ml-0 text-right"
+            formControlName="dateRegis" type="text" id="dateRegis" readonly /> </div>
+
+      </div>
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Last Visit Date :
+          </label> </div>
+        <div class="col-sm-6 float-left">
+          <!-- 	<input class="form-control text-right"   [readonly]="true" formControlName="lastVisitDate" type="text"    ngbDatepicker #lv="ngbDatepicker"  [maxDate]="maxDate" [minDate]="minDate" [startDate]="startDate" />  <div class="font-icon pl-3" (click)="lv.toggle()" style="Z-index:999" > <i class="fa fa-calendar"></i> </div> 
+               -->
+          <input class="form-control text-right" [readonly]="true" formControlName="lastVisitDate" type="text"
+            id="lastVisitDate" />
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row  mt-3">
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Health Provider <br>
+            Name : <span> * </span> </label> </div>
+        <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="anmId" formControlName="anmId"
+             [ngClass]="{'is-invalid': submitted && mfg.anmId.errors}">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let hp of healthProvider" [ngValue]="hp.id"> {{hp.name}}</option>
+          </select>
+          <div *ngIf="submitted && mfg.anmId.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.anmId.errors.required">
+              <p class="error_msg">Select Health Provider</p>
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> ASHA Name : <span> *
+            </span> </label> </div>
+        <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="ashaId" formControlName="ashaId"
+             [ngClass]="{'is-invalid': submitted && mfg.ashaId.errors}">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let asha of healthProviderAsha" [ngValue]="asha.id">{{asha.name}}</option>
+
+          </select>
+
+          <div *ngIf="submitted && mfg.ashaId.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.ashaId.errors.required">
+              <p class="error_msg">Select Asha</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Visit Date : <span>
+              * </span> </label> </div>
+        <div class="col-sm-6 float-left"> <input class="form-control text-right" formControlName="visitDate" type="text"
+            id="visitDate" readonly (ngModelChange)="findWomenAge()"
+            [ngClass]="{'is-invalid': submitted && mfg.visitDate.errors}" [readonly]="true" ngbDatepicker
+            #d="ngbDatepicker" [maxDate]="maxDate" [max]="maxDate" [minDate]="minDate" />
+
+          <div class="font-icon pl-3" (click)="d.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i> </div>
+          <div *ngIf="submitted && mfg.visitDate.errors" class="invalid-feedback  col-md-12 float-left pl-0 pr-0">
+            <div class="error_msg1" *ngIf="mfg.visitDate.errors.required">
+              <p class="error_msg">Visit Date is required</p>
+            </div>
+            <div class="error_msg1" *ngIf="mfg.visitDate.errors.validVisitFlag">
+              <p class="error_msg">Date of Visit must be greater than Date of Registration</p>
+            </div>
+            <div class="error_msg1" *ngIf="mfg.visitDate.errors.lastValidVisitFlag">
+              <p class="error_msg">Next Visit must be 28 days after last Visit</p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+    <div class="row  mt-3">
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> LMP : <span>*</span>
+            <div class="text-under2">( Click LA for Lactational amenorrhea)</div>
+          </label> </div>
+        <div class="col-sm-6 float-left"> <input class="form-control text-right" id="ecLmpDate"
+            formControlName="ecLmpDate" [ngClass]="{'is-invalid': submitted && mfg.ecLmpDate.errors}" [readonly]="true"
+            type="text" ngbDatepicker #la="ngbDatepicker" [maxDate]="maxDate" [minDate]="minDate" />
+          <div class="font-icon pl-3" (click)="la.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i> </div>
+          <div class="text-bread  ">
+            <label><input class="mt-1 mr-1" type="checkbox" formControlName="LAcheck" (change)="onLAcheck()">LA</label>
+          </div>
+
+          <div *ngIf="submitted && mfg.ecLmpDate.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.ecLmpDate.errors.required">
+              <p class="error_msg">LMP Date is required or Check on LA</p>
+            </div>
+
+            <div class="error_msg1" *ngIf="mfg.ecLmpDate.errors.validLmpDateFlag">
+              <p class="error_msg">LMP Date should not greater than Visit Date</p>
+            </div>
+
+            <div class="error_msg1" *ngIf="mfg.ecLmpDate.errors.validLastLmpDateFlag">
+              <p class="error_msg">LMP Date should be greater than last LMP Date</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Pregnancy : <span> *
+            </span></label> </div>
+        <div class="col-sm-6 float-left">
+          <select class="form-control pl-0  pr-0" id="pregnant" formControlName="pregnant" (change)="onSelectPregnant()"
+            [ngClass]="{'is-invalid': submitted && mfg.pregnant.errors}" >
+            <option value="" hidden>-Select-</option>
+            <option value='Y'>Yes</option>
+            <option value='N'>No</option>
+            <option value='D'>Don't Know</option>
+          </select>
+          <div *ngIf="submitted && mfg.pregnant.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.pregnant.errors.required">
+              <p class="error_msg">Select Pragnant</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Pregnancy Test :
+            <span> * </span> </label> </div>
+        <div class="col-sm-6 float-left">
+          <select class="form-control pl-0  pr-0" id="pregnantTest"   [ngClass]="{'is-invalid': submitted && mfg.pregnantTest.errors}" formControlName="pregnantTest">
+            <option value="" hidden>-Select-</option>
+            <option value="P">Positive</option>
+            <option value="N">Negative</option>
+            <option value="D">Not Done</option>
+          </select>
+
+          <div *ngIf="submitted && mfg.pregnantTest.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.pregnantTest.errors.required">
+              <p class="error_msg">Select Pragnant Test</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row  mt-3">
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Types of Facility
+            where service was given : <span> * </span> </label> </div>
+        <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="facilityType"
+            formControlName="facilityType" (change)="onFacilityChange()"
+            [ngClass]="{'is-invalid': submitted && mfg.facilityType.errors}">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let h of healthFac" [ngValue]="h.typeId">{{h.typeName}}</option>
+
+          </select>
+          <div *ngIf="submitted && mfg.facilityType.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.facilityType.errors.required">
+              <p class="error_msg">Select Facility Type</p>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="col-md-4" *ngIf="placeDropDown">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Place Name : <span>
+              * </span>
+          </label> </div>
+        <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="placeName"
+            formControlName="placeName" [ngClass]="{'is-invalid': submitted && mfg.placeName.errors}">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let p of place" [ngValue]="p.pid">{{p.nameE}}</option>
+      </select>
+          <div *ngIf="submitted && mfg.placeName.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.placeName.errors.required">
+              <p class="error_msg">Select Place Name</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-4" *ngIf="placeInput">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Other Place Name :
+            <span> * </span>
+          </label> </div>
+        <div class="col-sm-6 float-left"> <input class="form-control" id="otherPlaceName"
+            formControlName="otherPlaceName" type="text" />
+        </div>
+      </div>
+
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> EC Death : <span> *
+            </span> </label> </div>
+        <div class="col-sm-5 float-left"> <select class="form-control pl-0  pr-0" id="ecDeath" formControlName="ecDeath"
+            (change)="onSelectEcDeath()" [ngClass]="{'is-invalid': submitted && mfg.ecDeath.errors}">
+            <option value="" hidden>-Select-</option>
+            <option value="Y">Yes</option>
+            <option value="N">No</option>
+          </select>
+
+          <div *ngIf="submitted && mfg.ecDeath.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.ecDeath.errors.required">
+              <p class="error_msg">Select Death Option</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="row  mt-3" *ngIf="ecdeathDetail">
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Date of Death :
+            <span> * </span> </label> </div>
+        <div class="col-sm-5 float-left"> <input class="form-control text-right" id="deathDate"
+            formControlName="deathDate" [ngClass]="{'is-invalid': submitted && mfg.deathDate.errors}" type="text"
+            [readonly]="true" ngbDatepicker #dd="ngbDatepicker" [maxDate]="maxDate" [minDate]="minDate" />
+          <div class="font-icon pl-3" (click)="dd.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i> </div>
+
+          <div *ngIf="submitted && mfg.deathDate.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.deathDate.errors.required">
+              <p class="error_msg">Death date is required</p>
+            </div>
+
+            <div class="error_msg1" *ngIf="mfg.deathDate.errors.validDeathFlag">
+              <p class="error_msg">Death date should be greater than registration date and Last Visit date</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Place of Death :
+            <span> * </span> </label> </div>
+        <div class="col-sm-5 float-left"> <input type="text" class="form-control" id="deathPlace"
+            formControlName="deathPlace" [ngClass]="{'is-invalid': submitted && mfg.deathPlace.errors}">
+
+          <div *ngIf="submitted && mfg.deathPlace.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.deathPlace.errors.required">
+              <p class="error_msg">Death place is required</p>
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Reason of Death :
+            <span> * </span></label> </div>
+        <div class="col-sm-5 float-left"> <input type="text" class="form-control" id="deathReason"
+            formControlName="deathReason" [ngClass]="{'is-invalid': submitted && mfg.deathReason.errors}">
+          <div *ngIf="submitted && mfg.deathReason.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.deathReason.errors.required">
+              <p class="error_msg">Death reason is required</p>
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+      </div>
+      <!--  <br><br><br>
+
+        <div class="col-md-4">
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Other Death Cause
+              : <span> * </span> </label> </div>
+          <div class="col-sm-5 float-left"> <input class="form-control" id="otherDeathCause" formControlName="otherDeathCause" type="text" />
+          </div>
+        </div> -->
+
+
+    </div>
+
+
+
+
+
+    <div class="row  mt-3">
+      <div class="col-md-4">
+        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Method :<span> *
+            </span> </label> </div>
+        <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="method" formControlName="method"
+            (change)="onSelectChange()" [ngClass]="{'is-invalid': submitted && mfg.method.errors}">
+            <option value="" hidden>-Select-</option>
+            <option *ngFor="let m of Method" [ngValue]="m.method">{{m.name}}</option>
+
+          </select>
+
+          <div *ngIf="submitted && mfg.method.errors" class="invalid-feedback">
+            <div class="error_msg1" *ngIf="mfg.method.errors.required">
+              <p class="error_msg">Select Method</p>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div formArrayName="tEctMethod" *ngFor="let item of getControls(); let i = index;">
+      <div [formGroupName]="i">
+
+
+        <!--       <div  formGroupName="tEctMethod" >
+ -->
+        <div class="row  mt-3">
+
+          <div class="col-md-4" *ngIf="qtyPieces">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Quantity Received
+                (Pieces):<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="quantityPieces"
+                (keydown)="keydownfunction($event)" formControlName="quantityPieces"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().quantityPieces.errors}" />
+
+              <div *ngIf="submitted && getmethodControls().quantityPieces.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().quantityPieces.errors.min">
+                  <p class="error_msg">Enter Qty in Range 0-100 </p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().quantityPieces.errors.max">
+                  <p class="error_msg">Enter Qty in Range 0-100</p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().quantityPieces.errors.required">
+                  <p class="error_msg">Pieces are required</p>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div class="col-md-4" *ngIf="qtyStrips">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Quantity Received
+                (Strips):<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="quantityStrips"
+                (keydown)="keydownfunction($event)" formControlName="quantityStrips"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().quantityStrips.errors}" />
+
+              <div *ngIf="submitted && getmethodControls().quantityStrips.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().quantityStrips.errors.min">
+                  <p class="error_msg">Enter Strips in Range 0-12 </p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().quantityStrips.errors.max">
+                  <p class="error_msg">Enter Strips in Range 0-12</p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().quantityStrips.errors.required">
+                  <p class="error_msg">Strips are required</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="row  mt-3" *ngIf="IUCD">
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Date of IUCD
+                insertion:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="iucdinsertionDate"
+                formControlName="iucdinsertionDate" [readonly]="true" ngbDatepicker #iu="ngbDatepicker"
+                [maxDate]="maxDate" [minDate]="minDate"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().iucdinsertionDate.errors}" />
+              <div class="font-icon pl-3" (click)="iu.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i>
+              </div>
+
+              <div *ngIf="submitted && getmethodControls().iucdinsertionDate.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().iucdinsertionDate.errors.validIUCD">
+                  <p class="error_msg">IUCD date can't be greater than Visit Date</p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Type of IUCD
+                inserted (375/380A):<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" type="text" id="iucdType"
+                formControlName="iucdType">
+                <option value="" hidden>-select-</option>
+                <option value="A">IUCD 380 A-10 years</option>
+                <option value="B">IUCD 375 -5 years</option>
+
+              </select>
+
+
+            </div>
+          </div>
+
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">PS/PV
+                Findings:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left">
+
+              <select class="form-control pl-0  pr-0" type="text" id="pspvFindings" formControlName="pspvFindings">
+                <option value="" hidden>-select-</option>
+                <option value="N">NAD</option>
+                <option value="A">Abnormality detected</option>
+
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Follow up visit
+                at facility:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left">
+
+              <select class="form-control pl-0  pr-0" type="text" id="followVisit" formControlName="followVisit">
+                <option value="" hidden>-select-</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+
+              </select>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row  mt-3" *ngIf="InjContraceptive">
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Date of MPA
+                injection administered:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control" type="text" formControlName="mpainjectionDate"
+                id="mpainjectionDate" [readonly]="true" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate"
+                [minDate]="minDate"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().mpainjectionDate.errors}" />
+              <div class="font-icon pl-3" (click)="d.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i>
+              </div>
+
+              <div *ngIf="submitted && getmethodControls().mpainjectionDate.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().mpainjectionDate.errors.validMPA">
+                  <p class="error_msg">MPA Injection date can't be greater than Visit Date</p>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">No. of Dose
+                (Mention the dose):<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="noOfDose"
+                (keydown)="keydownfunction($event)" formControlName="noOfDose"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().noOfDose.errors}" />
+
+              <div *ngIf="submitted && getmethodControls().noOfDose.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().noOfDose.errors.min">
+                  <p class="error_msg">Enter dose in Range 1-100</p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().noOfDose.errors.max">
+                  <p class="error_msg">Enter dose in Range 1-100</p>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Type of
+                MPA:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left">
+
+              <select class="form-control pl-0  pr-0" type="text" id="mpainjectionType"
+                formControlName="mpainjectionType">
+                <option value="" hidden>-select-</option>
+                <option value="I">IM</option>
+                <option value="S">SC</option>
+
+              </select>
+
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Weight of woman
+                <br> (in kgs):<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control text-right" type="text" id="weightWomen"
+                formControlName="weightWomen" (keydown)="keydownfunction($event)"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().weightWomen.errors}" />
+
+
+              <div *ngIf="submitted && getmethodControls().weightWomen.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().weightWomen.errors.min">
+                  <p class="error_msg">Enter Weight in Range 30-200 Kg</p>
+                </div>
+
+                <div class="error_msg1" *ngIf="getmethodControls().weightWomen.errors.max">
+                  <p class="error_msg">Enter Weight in Range 30-200 Kg</p>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+
+          <div class="col-md-4">
+
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">BP of woman <br>
+                (Systolic/Diastolic):<span> * </span>
+                <div class="text-under2">(Click if BP not done)</div>
+              </label> </div>
+            <div class="col-sm-6  float-left"> <input class="form-control text-right col-md-6 float-left" type="text"
+                id="bpSystolic" (keydown)="keydownfunction($event)" [readonly]="bpWrite" formControlName="bpSystolic"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().bpSystolic.errors}" />
+              <input class="form-control text-right col-md-6 float-left" type="text" id="bpDistolic"
+                (keydown)="keydownfunction($event)" [readonly]="bpWrite" formControlName="bpDistolic"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().bpDistolic.errors}" />
+
+              <div class="text-bread">
+                <label><input class="mt-1 mr-1" type="checkbox" formControlName="bpCheck" (change)="onBPcheck()">Not
+                  Done</label>
+              </div>
+
+
+              <div *ngIf="submitted && getmethodControls().bpSystolic.errors" class="invalid-feedback">
+                <div class="error_msg1"
+                  *ngIf="getmethodControls().bpSystolic.errors.min ||  getmethodControls().bpSystolic.errors.max">
+                  <p class="error_msg">Enter Systolic BP in Range 40-400 mm of Hg</p>
+                </div>
+              </div>
+
+              <div *ngIf="submitted && getmethodControls().bpDistolic.errors" class="invalid-feedback">
+                <div class="error_msg1"
+                  *ngIf="getmethodControls().bpDistolic.errors.min || getmethodControls().bpDistolic.errors.max">
+                  <p class="error_msg">Enter Diastolic BP in Range 30-300 mm of Hg</p>
+                </div>
+              </div>
+
+              <div *ngIf="submitted && getmethodControls().bpDistolic.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().bpDistolic.errors.validBp">
+                  <p class="error_msg">BP Diastolic should not greater than BP Systolic</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Changes in
+                menstrual bleeding:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left">
+
+              <select class="form-control pl-0  pr-0" type="text" id="bleedingChanging"
+                formControlName="bleedingChanging">
+                <option value="" hidden>-Select-</option>
+                <option value="P">Prolonged bleeding</option>
+                <option value="H">Heavy bleeding</option>
+                <option value="I">Irregular bleeding</option>
+                <option value="A">Amenorrhea</option>
+                <option value="O">Others</option>
+
+
+              </select>
+
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+
+        <div class="row  mt-3" *ngIf="sterlization">
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Date of
+                Sterlization Procedure:</label> </div>
+            <div class="col-sm-5 float-left"> <input class="form-control text-right " id="sterilizationDate"
+                formControlName="sterilizationDate" type="text" [readonly]="true" ngbDatepicker #sd="ngbDatepicker"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().sterilizationDate.errors}"
+                [maxDate]="maxDate" [minDate]="minDate" />
+              <div class="font-icon pl-3" (click)="sd.toggle()" style="Z-index:999"> <i class="fa fa-calendar"></i>
+              </div>
+              <div *ngIf="submitted && getmethodControls().sterilizationDate.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().sterilizationDate.errors?.validSTRL">
+                  <p class="error_msg">Sterlization date can't be greater than Visit Date</p>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+          </div>
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Type of
+                Sterlization:</label> </div>
+            <div class="col-sm-5 float-left"> <select class="form-control pl-0  pr-0" id="sterilizationType"
+                formControlName="sterilizationType">
+                <option value="" hidden>-select-</option>
+                <option value="N">NSV</option>
+                <option value="L">Lap</option>
+                <option value="M">Minilap</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Follow up visit
+                at facility done:</label> </div>
+            <div class="col-sm-5 float-left">
+              <select class="form-control pl-0  pr-0" id="visitFacility" formControlName="visitFacility">
+                <option value="" hidden>-select-</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+                <option value="NA">Not Applicable</option>
+
+              </select>
+
+            </div>
+          </div>
+
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Issuance of
+                Sterlization<br />certificate :</label> </div>
+            <div class="col-sm-5 float-left"> <select class="form-control pl-0  pr-0" id="sterilizationInsurance"
+                formControlName="sterilizationInsurance">
+                <option value="" hidden>-select-</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-3" *ngIf="otherMethodInput">
+
+          <div class="col-md-4">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Any Other
+                Method:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <input class="form-control" type="text" id="otherMethod"
+                formControlName="otherMethod"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().otherMethod.errors}" />
+
+              <div *ngIf="submitted && getmethodControls().otherMethod.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().otherMethod.errors.required">
+                  <p class="error_msg">Other Method is required</p>
+                </div>
+                <div class="error_msg1" *ngIf="getmethodControls().otherMethod.errors.maxlength">
+                  <p class="error_msg">Length should not be greater than 50 character</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+        <!--   <div class=" col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left">
+          Discontinuation/Switching </div>
+     -->
+
+
+        <div class="col-md-12 float-left mt-3" *ngIf="discontinueSwitch">
+
+          <div class="col-md-6 float-left">
+            <div class="col-sm-8 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Any Contraceptive
+                Method switch/ discontinuation from previous month:<span> * </span></label> </div>
+            <div class="col-sm-3 float-left"> <select class="form-control pl-0  pr-0" id="switchingMonth"
+                formControlName="switchingMonth"
+                [ngClass]="{'is-invalid': submitted && getmethodControls().switchingMonth.errors}"
+                (change)="onSelectDiscontinue()">
+                <option value="" hidden>-select-</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+              <div *ngIf="submitted && getmethodControls().switchingMonth.errors" class="invalid-feedback">
+                <div class="error_msg1" *ngIf="getmethodControls().switchingMonth.errors.required">
+                  <p class="error_msg">-Select Option-</p>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+        <div class="col-md-12 float-left mt-3" *ngIf="contraceptiveMethod">
+          <div class="col-md-4 float-left">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Alternative
+                method provided <span class="text-under2">(if contraceptive is discontinued) </span> : <span> *
+                </span></label> </div>
+            <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="alternativeMethod"
+                formControlName="alternativeMethod" (change)="onSelectDiscontinue()">
+                <option value="" hidden>-select-</option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-4 float-left">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Type of modern
+                contraceptive method provided:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="modernMethod"
+                formControlName="modernMethod">
+                <option value="" hidden>-Select-</option>
+                <option *ngFor="let m of Method" [ngValue]="m.method">{{m.name}}</option>
+
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-4 float-left">
+            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Reasons for
+                discontinuation:<span> * </span> </label> </div>
+            <div class="col-sm-6 float-left"> <select class="form-control pl-0  pr-0" id="discontinuationReason"
+                formControlName="discontinuationReason">
+                <option value="" hidden>-Select-</option>
+                <option *ngFor="let d of DiscontinueReason" [ngValue]="d.id">{{d.name}}</option>
+
+              </select>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <!--      <button  (click)="addItem()" style="cursor: default"> Add Method:</button>-->
+    </div>
+
+
+
+    <section class="  col-md-12 float-left">
+      <div class="mx-auto mt-1 mb-2 col-md-12 text-center">
+        <!-- <a class="btn btn-success radius-p mr-1 " href="#">Save </a> -->
+        <button type="submit" class="btn btn-success radius-p">Save</button>
+        <a class="btn btn-danger radius-p ml-1 " id="clear" (click)="clearEct()">Clear</a>
+        <!--  <a class="btn btn-primary radius-p ml-1 " (click)="clearEct()">New Entry </a> -->
+        <a class="btn btn-primary radius-p ml-1" *ngIf="continueFlag" (click)="continueEct()">Continue</a>
+      </div>
+    </section>
+  </form>
+
+ <!--     <h2>Form Valid : {{ectForm.valid}}</h2>
+    <h2>Edit Flag : {{editFlag}}</h2>
+    <h3>{{lastLMPdateMsg}}</h3>
+ <h5>{{ectForm.value | json}}</h5>  
+    <h5>{{mfg.LAcheck.value}}</h5>  
+ -->
+ <h6>{{ectmodel | json}}</h6>
+
+  <!-- <div class="text-center col-md-12 float-left mt-2 pl-0 pr-0">
+    <table class="table">
+      <thead class="thead-dark text-11 border-dark border">
+        <tr class="border-dark border">
+          <th scope="col">Visit No.</th>
+          <th scope="col">Visit Date</th>
+          <th scope="col">LMP Date</th>
+          <th scope="col">Death Date</th>
+          <th scope="col">Method</th>
+          <th scope="col">Other Method</th>
+          <th scope="col">Pregnant</th>
+          <th scope="col">Pregnancy Test</th>
+          <th scope="col">ANM</th>
+          <th scope="col">ASHA</th>
+
+        </tr>
+      </thead>
+      <tbody class="text-10">
+         (click)="getEditVisit(ect.visitNo,ect.visitDate,ect.caseNo)" 
+        <tr class="trow" *ngFor="let ect of ectmodel" >
+          <td align="right">{{ect.visitNo}}</td>
+          <td align="right">{{ect.visitDate|slice:0:10|date:'dd-MM-yyyy'}}</td>
+          <td align="right">{{ect.ecLmpDate|slice:0:10|date:'dd-MM-yyyy'}}</td>
+          <td align="right">{{ect.ecDeathDate|slice:0:10|date:'dd-MM-yyyy'}}</td>
+          <td align="left">{{ect.method}}</td>
+          <td align="left">{{ect.otherMethod}}</td>
+          <td align="left">{{ect.pregnant}}</td>
+          <td align="left">{{ect.pregnantTest}}</td>
+          <td align="left"> {{ect.anmName}} </td>
+          <td align="left"> {{ect.ashaName}} </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div> -->
+
+</div>
+<div class="col-md-12 float-left mt-5 mb-5"></div>

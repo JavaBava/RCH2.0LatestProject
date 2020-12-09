@@ -1,0 +1,578 @@
+<div class="col-md-12 float-left pl-0 pr-0">
+	<app-hierarchy (usehierarchy)="usehierarchyHandler($event)"></app-hierarchy>
+	<!-- <div class="float-left col-md-12 mt-3 pt-2 pb-2 pl-3 error_msg pb-0" *ngIf="showNotFoundMsg">
+		<div class="col-md-12  mt-3 alert alert-danger float-left error_msg pb-0" role="alert">
+
+			<p class="error_msg1">
+				{{vmsg}}
+
+			</p>
+
+		</div>
+	</div> -->
+	<div class="float-left col-md-12 error_msg pb-0" *ngIf="showNotFoundMsg">
+		<div class="col-md-3 mt-1 pt-2 text-12 alert-danger float-left error_msg pb-0" > 
+	
+		
+	<label class="error_msg1 pb-0" role="alert">{{vmsg}}</label>
+		</div>
+	</div>
+	<div class=" col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left"> Profile Entry </div>
+	<div class="border bg-white mt-3" *ngIf="!fill_hierarchy">
+
+
+		<form class="text-13 float-left col-md-12" [formGroup]="myForm" (ngSubmit)="submitForm(myForm)">
+
+
+			<div class="row  mt-3 mx-auto ">
+
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Financial
+						Year: <span> * </span></label> </div>
+				<div class="col-sm-2 float-left">
+					<select id="finanacialYr" name="finanacialYr" class="form-control col-md-9 text-right"
+						(change)="changeFinancialYear($event.target.value)" formControlName="finanacialYr">
+						<option *ngFor="let s of financial_year" [value]="s.code">{{s.name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row  mt-2">
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Population
+						of
+						Village/Coverage Area: <span> * </span></label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control col-md-9 text-right input-new ml-0"
+						type="text" id="villagePopulation" name="villagePopulation" maxlength="5" min="0"
+						formControlName="villagePopulation"
+						[ngClass]="{'is-invalid': submitted && f.villagePopulation.errors}" /> </div>
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"></div>
+				<div class="col-sm-3 float-left">
+					<div *ngIf="submitted && f.villagePopulation.errors" class="text-danger">
+						<div class="error_msg1" *ngIf="f.villagePopulation.errors.max">
+							<p class="error_msg">Maximum Estimated Population not more than 99999</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.villagePopulation.errors.min">
+							<p class="error_msg">Minimum Estimated Population is 100</p>
+						</div>
+
+						<div class="error_msg1" *ngIf="f.villagePopulation.errors.required">
+							<p class="error_msg">Estimated Population is required</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.villagePopulation.errors.pattern">
+							<p class="error_msg">Enter valid Number</p>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row  mt-2">
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Total number
+						of
+						Eligible couple(EC) in a Year: <span> * </span> </label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control col-md-9 text-right input-new ml-0"
+						type="text" min="0" id="eligibleCouples" name="eligibleCouples" maxlength="5"
+						formControlName="eligibleCouples"
+						[ngClass]="{'is-invalid': submitted && f.eligibleCouples.errors}" /> </div>
+
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"></div>
+				<div class="col-sm-3 float-left">
+					<div *ngIf="submitted && f.eligibleCouples.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.eligibleCouples.errors.required">
+							<p class="error_msg">Estimated Eligible Couples is required</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.eligibleCouples.errors.max">
+							<p class="error_msg">Estimated Eligible Couples not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.eligibleCouples.errors.length">
+							<p class="error_msg">Estimated Eligible Couples not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.eligibleCouples.errors.pattern">
+							<p class="error_msg">Enter valid Number</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.eligibleCouples.errors.validPop">
+							<p class="error_msg">Estimated EligibleCouple Not more than Village Population</p>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row  mt-2">
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Estimated
+						Number
+						of Pregnant Women in a Year: <span> * </span> </label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control col-md-9 text-right input-new ml-0"
+						type="text" maxlength="5" id="estimatedPw" name="estimatedPw" min="0"
+						formControlName="estimatedPw" [ngClass]="{'is-invalid': submitted && f.estimatedPw.errors}" />
+				</div>
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"></div>
+				<div class="col-sm-3 float-left">
+					<div *ngIf="submitted && f.estimatedPw.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.estimatedPw.errors.required">
+							<p class="error_msg">Estimated Pregnant Women is required</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedPw.errors.max">
+							<p class="error_msg">Estimated Pregnant Women not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedPw.errors.length">
+							<p class="error_msg">Estimated Pregnant Women not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedPw.errors.pattern">
+							<p class="error_msg">Enter valid Number</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedPw.errors.validPw">
+							<p class="error_msg">Estimated Pragnant Women Not more than Eligible Couples</p>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+
+
+			<div class="row  mt-2">
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Estimated
+						Number
+						of Infants(0-1) in a Year: <span> * </span> </label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control col-md-9 text-right input-new ml-0"
+						type="text" min="0" id="estimatedInfant" name="estimatedInfant" min="0"
+						formControlName="estimatedInfant"
+						[ngClass]="{'is-invalid': submitted && f.estimatedInfant.errors}" /> </div>
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"></div>
+				<div class="col-sm-3 float-left">
+					<div *ngIf="submitted && f.estimatedInfant.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.estimatedInfant.errors.required">
+							<p class="error_msg">Estimated Infants is required</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedInfant.errors.max">
+							<p class="error_msg">Estimated Infants not more than 5 digits</p>
+						</div>
+
+						<div class="error_msg1" *ngIf="f.estimatedInfant.errors.length">
+							<p class="error_msg">Estimated Infants not more than 5 digits</p>
+						</div>
+
+						<div class="error_msg1" *ngIf="f.estimatedInfant.errors.pattern">
+							<p class="error_msg">Enter valid Number</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedInfant.errors.validInfant">
+							<p class="error_msg">Estimated Infact does not greater than Estimated Pregnent Women</p>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="row  mt-2">
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Estimated
+						Number
+						of Children(1-2) Women in a Year:<span> * </span> </label> </div>
+				<div class="col-sm-3 float-left"> <input class="form-control col-md-9 text-right input-new ml-0"
+						id="estimatedChild" name="estimatedChild" type="text" min="0" maxlength="5"
+						formControlName="estimatedChild"
+						[ngClass]="{'is-invalid': submitted && f.estimatedChild.errors}" /> </div>
+				<div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"></div>
+				<div class="col-sm-3 float-left">
+					<div *ngIf="submitted && f.estimatedChild.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.required">
+							<p class="error_msg">Estimated Children is required</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.max">
+							<p class="error_msg">Estimated Children not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.length">
+							<p class="error_msg">Estimated Children not more than 5 digits</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.pattern">
+							<p class="error_msg">Enter valid Number</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.validChild">
+							<p class="error_msg">Estimated child is not greater than Estimated Infant</p>
+						</div>
+						<div class="error_msg1" *ngIf="f.estimatedChild.errors.validSum">
+							<p class="error_msg">Estimated Village Population is not less than Sum of Other Estimates
+							</p>
+						</div>
+
+
+
+					</div>
+
+				</div>
+
+
+
+			</div>
+
+
+			<div class="row  mt-3">
+
+				<div class="col-md-6">
+					<div class="col-sm-7 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name of
+							ANM: <span> * </span> </label> </div>
+					<div class="col-sm-4 float-left"> <select id="anmid" (change)="changeANMMobile($event.target.value)"
+							name="anmid" class="form-control" formControlName="anmid"
+							[ngClass]="{'is-invalid': submitted && f.anmid.errors}">
+							<option value="" hidden>Select ANM</option>
+							<option *ngFor="let a of healthProviderANM" [value]="a.id">{{a.name}}</option>
+
+						</select>
+						<div *ngIf="submitted && f.anmid.errors"  class="text-danger">
+							<div class="error_msg1" *ngIf="f.anmid.errors.required">
+								<p class="error_msg">ANM is required</p>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-4 float-left"> <input id="anmmob" class="form-control input-new ml-0  text-right"
+							type="text" name="anmmob" formControlName="anmmob" readonly /> </div>
+				</div>
+			</div>
+
+			<div class="row  mt-3">
+
+				<div class="col-md-6">
+					<div class="col-sm-7 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name of
+							ANM 2:<span> * </span> <br>(If applicable) </label> </div>
+					<div class="col-sm-4 float-left"> <select id="anm2" class="form-control" name="anm2id"
+							(change)="changeANM2Mobile($event.target.value)" formControlName="anm2id"
+							[ngClass]="{'is-invalid': submitted && f.anm2id.errors}">
+							<option value="" hidden>Select ANM2</option>
+							<option *ngFor="let a of healthProviderANM2" [value]="a.id">{{a.name}}</option>
+						</select>
+						<div *ngIf="submitted && f.anm2id.errors"  class="text-danger">
+							<div class="error_msg1" *ngIf="f.anm2id.errors.required">
+								<p class="error_msg">ANM2 is required</p>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-4 float-left"> <input id="anm2mob" name="anm2mob"
+							class="form-control input-new ml-0 text-right" type="text" formControlName="anm2mob"
+							readonly /> </div>
+				</div>
+			</div>
+			<div class="row  mt-2">
+
+				<div class="col-md-6">
+					<div class="col-sm-7 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name of
+							MPW: <span> * </span></label> </div>
+					<div class="col-sm-4 float-left"> <select id="mpwid" name="mpwid" class="form-control"
+							(change)="changeMPWMobile($event.target.value)" formControlName="mpwid"
+							[ngClass]="{'is-invalid': submitted && f.mpwid.errors}">
+							<option value="" hidden>Select MPW</option>
+							<option *ngFor="let a of healthProviderMPW" [value]="a.id">{{a.name}}</option>
+						</select>
+						<div *ngIf="submitted && f.mpwid.errors"  class="text-danger">
+							<div class="error_msg1" *ngIf="f.mpwid.errors.required">
+								<p class="error_msg">MPW is required</p>
+							</div>
+							<div class="error_msg1 float-right" *ngIf="f.mpwid.errors.atleatOne">
+								<p class="error_msg float-left">Please select atleast one ANM or MPW</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-4 float-left"> <input id="mpwmob" name="mpwmob"
+							class="form-control input-new ml-0  text-right" type="text" formControlName="mpwmob"
+							readonly /> </div>
+				</div>
+			</div>
+			<div class="row  mt-3">
+
+				<div class="col-md-6">
+					<div class="col-sm-7 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name of
+							ASHA : <span> * </span> </label> </div>
+					<div class="col-sm-4 float-left"> <select id="ashaid" name="ashaid" class="form-control"
+							(change)="changeASHAMobile($event.target.value)" formControlName="ashaid"
+							[ngClass]="{'is-invalid': submitted && f.ashaid.errors}">
+							<option value="" hidden>Select ASHA</option>
+							<option *ngFor="let a of healthProviderASHA" [value]="a.id">{{a.name}}</option>
+						</select>
+						<div *ngIf="submitted && f.ashaid.errors"  class="text-danger">
+							<div class="error_msg1" *ngIf="f.ashaid.errors.required">
+								<p class="error_msg">ASHA is required</p>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-4 float-left"> <input id="ashamob" name="ashamob"
+							class="form-control input-new ml-0  text-right" type="text" formControlName="ashamob"
+							readonly /></div>
+				</div>
+			</div>
+			<div class="row  mt-3">
+
+				<div class="col-md-6">
+					<div class="col-sm-7 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name of
+							AWW: <span> * </span> </label> </div>
+					<div class="col-sm-4 float-left"> <select id="awwid" name="awwid" class="form-control "
+							(change)="changeAWWMobile($event.target.value)" formControlName="awwid"
+							[ngClass]="{'is-invalid': submitted && f.awwid.errors}">
+							<option value="" hidden>Select AWW</option>
+							<option *ngFor="let a of healthProviderAWW" [value]="a.id">{{a.name}}</option>
+						</select>
+						<div *ngIf="submitted && f.awwid.errors"  class="text-danger">
+							<div class="error_msg1" *ngIf="f.awwid.errors.required">
+								<p class="error_msg">AWW is required</p>
+							</div>
+							<div class="error_msg1" *ngIf="f.awwid.errors.validHP">
+								<p class="error_msg">Please select atleast one Health Provider</p>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-4 float-left"> <input id="awwmob" name="awwmob"
+							class="form-control input-new ml-0 text-right" type="text" formControlName="awwmob"
+							readonly /></div>
+				</div>
+			</div>
+
+			<div class="row  mt-3 bg-light pl-0 ml-0">
+
+				<div class="col-sm-10 mt-2  float-left pl-4 mr-0 pr-0"> <label class="text-label"> Name, Address & Phone
+						No. of nearest Health Institution/PHC (24*7): </label> </div>
+
+			</div>
+			<div class="row  mt-3">
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name :
+						</label> </div>
+					<div class="col-sm-6 float-left"> <input id="phcname" name="phcname"
+							class="form-control input-new ml-0" type="text" formControlName="phcName" /> </div>
+				</div>
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Address
+							: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="phcaddress" name="phcaddress"
+							class="form-control input-new ml-0" type="text" formControlName="phcAddress" /></div>
+				</div>
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Land Line
+							: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="phclandline" name="phclandline" maxlength="12"
+							  class="form-control input-new ml-0 text-right"
+							type="text" formControlName="phcLl"
+							[ngClass]="{'is-invalid': submitted && f.phcLl.errors}" /></div>
+					<div *ngIf="submitted && f.phcLl.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.phcLl.errors.pattern">
+							<p class="error_msg">Land line number should be in format as XXX-XXXXXXXX</p>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="phcmobile" name="phcmobile" maxlength="10"
+							(keydown)="mobileFunction($event)" class="form-control input-new ml-0 text-right"
+							type="text" formControlName="phcMob"
+							[ngClass]="{'is-invalid': submitted && f.phcMob.errors}" /> </div>
+					<div *ngIf="submitted && f.phcMob.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.phcMob.errors.pattern">
+							<p class="error_msg">Please Enter correct Mobile Number</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row  mt-3 bg-light pl-0 ml-0">
+
+				<div class="col-sm-10 mt-2  float-left pl-4 mr-0 pr-0"> <label class="text-label">Name, Address & Phone
+						No. of FRU (First Referral Unit): </label> </div>
+
+			</div>
+			<div class="row  mt-3 ">
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Name :
+						</label> </div>
+					<div class="col-sm-6 float-left"> <input id="fruname" name="fruname"
+							class="form-control input-new ml-0" type="text" formControlName="fruName" /> </div>
+				</div>
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Address
+							: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="fruaddress" name="fruaddress"
+							class="form-control input-new ml-0" type="text" formControlName="fruAddress" />
+					</div>
+				</div>
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Land Line
+							: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="frulandline" name="frulandline"
+							  maxlength="12"
+							class="form-control input-new ml-0 text-right" type="text" formControlName="fruLl"
+							[ngClass]="{'is-invalid': submitted && f.fruLl.errors}" /> </div>
+					<div *ngIf="submitted && f.fruLl.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.fruLl.errors.pattern">
+							<p class="error_msg">Land line number should be in format as XXX-XXXXXXXX</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="frumobile" name="frumobile"
+							(keydown)="mobileFunction($event)" maxlength="10"
+							class="form-control input-new ml-0 text-right" type="text" formControlName="fruMob"
+							[ngClass]="{'is-invalid': submitted && f.fruMob.errors}" /></div>
+
+					<div *ngIf="submitted && f.fruMob.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.fruMob.errors.pattern">
+							<p class="error_msg">Please Enter correct mobile Number</p>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<div class="row  mt-3 bg-light pl-0 ml-0">
+
+
+				<div class="col-sm-10 mt-2  float-left pl-4 mr-0 pr-0"> <label class="text-label"> Phone No. for
+						Ambulance/Transport: </label> </div>
+
+			</div>
+			<div class="row  mt-3">
+
+
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label">Land Line
+							: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="trplandline" name="trplandline" maxlength="12"
+							  class="form-control input-new ml-0 text-right"
+							type="text" formControlName="trsprtLl"
+							[ngClass]="{'is-invalid': submitted && f.trsprtLl.errors}" /> </div>
+
+					<div *ngIf="submitted && f.trsprtLl.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.trsprtLl.errors.pattern">
+							<p class="error_msg">Land line number should be in format as XXX-XXXXXXXX</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 pl-0 mr-0 pr-0">
+					<div class="col-sm-5 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label class="text-label"> Mobile
+							Number: </label> </div>
+					<div class="col-sm-6 float-left"> <input id="trsprtMob" name="trsprtMob" maxlength="10"
+							class="form-control input-new ml-0 text-right" (keydown)="mobileFunction($event)"
+							type="text" formControlName="trsprtMob"
+							[ngClass]="{'is-invalid': submitted && f.trsprtMob.errors}" /> </div>
+					<div *ngIf="submitted && f.trsprtMob.errors"  class="text-danger">
+						<div class="error_msg1" *ngIf="f.trsprtMob.errors.pattern">
+							<p class="error_msg">Please Enter correct mobile Number</p>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+			<div class="row  mt-3 bg-light pl-0 ml-0">
+
+				<div class="col-sm-10 mt-2  float-left pl-4 mr-0 pr-0"> <label class="text-label"> Toll Free Number
+					</label> </div>
+
+			</div>
+			<div class="row  mt-3">
+				<div class="col-md-5">
+					<div class=" mt-2 ml-4"> <label class="text-label text-16 text-primary">National Call Center Number
+							: 10588 </label> </div>
+
+				</div>
+				<div class="col-md-5">
+					<div class=" mt-2 ml-4"> <label class="text-label text-16 text-primary"> State Call Center Number :
+							10588 </label> </div>
+
+				</div>
+			</div>
+
+
+			<section class="row">
+				<div class="mx-auto mt-4 mb-2">
+					<button type="submit" class="btn btn-success radius-p">Save</button>
+					<a class="btn btn-danger radius-p ml-1 " (click)="clearMyForm()"> Clear </a>
+
+				</div>
+			</section>
+
+		</form>
+
+		<div class="text-center col-md-12 row  mt-2">
+			<table class="table" border="1">
+				<thead class="thead-dark text-13">
+					<tr>
+						<th align="right" scope="col"> S.No. </th>
+						<th align="right" scope="col"> Financial Year &nbsp;&nbsp; &nbsp; </th>
+						<th align="right" scope="col">Village Population/Coverage Area </th>
+						<th align="right" scope="col">Eligible Couples </th>
+						<th align="right" scope="col"> Estimated PW </th>
+						<th align="right" scope="col"> Estimated Infant </th>
+						<th align="right" scope="col"> Estimated Children </th>
+						<th align="left" scope="col"> PHC Name </th>
+						<th align="left" scope="col"> FRU Name </th>
+
+					</tr>
+				</thead>
+				<tbody class="text-13">
+					<tr *ngFor="let villageWiseProfile of VillageWiseProfile; let i=index">
+						<th scope="row">{{i+1}}</th>
+						<td align="right">{{villageWiseProfile.finanacialYr}} - {{villageWiseProfile.finanacialYr+1}}
+						</td>
+						<td align="right">{{villageWiseProfile.villagePopulation}}</td>
+						<td align="right">{{villageWiseProfile.eligibleCouples}}</td>
+						<td align="right">{{villageWiseProfile.estimatedPw}}</td>
+						<td align="right">{{villageWiseProfile.estimatedInfant}}</td>
+						<td align="right">{{villageWiseProfile.estimatedChild}}</td>
+						<td align="left">{{villageWiseProfile.phcName}}</td>
+						<td align="left">{{villageWiseProfile.fruName}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<button (click)="downloadpdf()" class="btn btn-success float-right mb-3 ml-2 radius-p">DownLoad</button>
+
+
+		</div>
+	</div>
+</div>
+<div class="col-md-12 float-left mt-5 mb-5"></div>

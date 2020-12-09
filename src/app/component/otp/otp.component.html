@@ -1,0 +1,127 @@
+<div class="bg-primary pt-1 col-md-12 pl-0 pr-0"></div>
+<div class="col-md-10 pl-0 pr-0  mb-4 mt-2 mx-auto ">
+    <div class="col-md-12 float-left mb-3">
+    <div class=" col-md-8 float-left logo-m ">
+        <a href=""> <img src="assets/images/logo-rch.png" alt="logo" class="logo"> </a>
+    </div>
+    <div class=" col-md-4 float-right text-right nhm-logo">
+        <img src="assets/images/nhm-toplogo.png" alt="logo" class="logo float-left col-md-6">
+       <a href="/login"> <button type="submit"  class="btn btn-block bg-danger text-white mb-4 float-left col-md-6 mt-3 radius-p">Sign In </button> </a>
+    </div>
+  </div>
+  </div>
+
+<div class="card mx-auto col-md-6   login-card mb-5">
+    <div class=" no-gutters col-md-12">
+        <div class="col-md-12">
+            <div class="card-body mt-3 ">
+			      
+
+                 <form [formGroup]="otpForm" (ngSubmit)="onSubmit(otpForm)" autocomplete="off" class="mx-auto text-13">
+				
+				 <input type="hidden" id="namebuttonEventid" value="" [(ngModel)]="buttonEvent" formControlName="namebuttonEvent"> 
+				    <input type="hidden" id="mobno" class="form-control" formControlName="mobno">
+					 <input type="hidden" id="emailid" class="form-control" formControlName="emailid">
+					
+				  <div *ngIf="showOtpDiv">
+
+                    <ngb-alert type="danger" *ngIf="!showOtpMobVerifiedMsgWrong" (close)="showOtpMobVerifiedMsgWrong=true" ><div class="error_msg"><div class="error_msg1">Wrong OTP OR OTP has been expired. </div></div></ngb-alert>
+					
+					 <ngb-alert type="danger" *ngIf="!showOtpMobVerifiedMsgExpired" (close)="showOtpMobVerifiedMsgExpired=true" ><div class="error_msg"><div class="error_msg1">Wrong OTP OR OTP has been expired.</div></div></ngb-alert>
+
+					
+                  <div class="alert alert-success" role="alert" *ngIf="showOtpsendMsg">
+                   OTP has been sent to your mobile/mail.
+                   </div>
+				   
+				    <div class="alert alert-success" role="alert" *ngIf="showOtpresendMsg">
+                   OTP has been re-sent to your mobile/mail.
+                   </div>
+				   
+				   
+                <p class="login-card-description  bg-primary text-white pt-2 pb-2 pl-2 ">OTP Verification </p>
+				
+				<div class="alert alert-danger" role="alert" *ngIf="showServerresponseMsg">
+                    {{errorresponse}}
+                   </div>
+	  
+               
+		 
+		 
+                 
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-5 col-form-label text-label">Enter OTP : <span> * </span></label>
+
+                        <div class="col-sm-5">
+                            <input type="text" id="otpid" class="form-control" formControlName="otp" [ngClass]="{ 'is-invalid': submitted && f.otp.errors }">
+							<div *ngIf="submitted && f.otp.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.otp.errors.required">OTP is required</div>
+                            </div>
+                        </div>
+						
+
+                    </div>
+					
+					
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-5 col-form-label"></label>
+                        <div class="col-sm-7 pl-0 ml-0 mx-auto pl-0 pr-0">
+                            <button type="submit" name="verifyOtp" value="verifyOtpButton" class="btn bg-success text-white text-13 mr-2  float-left radius-p" (click)="clickButton('clickVerifyotp')"> Verify OTP </button>
+							 <button type="submit" name="resendOtp" class="btn bg-info text-white text-13  float-left radius-p" (click)="clickButton('clickResendOtp')"> Resend OTP </button>
+                        </div>
+                    </div>
+					
+					</div>
+
+                    <div *ngIf="showPasswordDiv">
+					
+					 <p class="login-card-description  bg-primary text-white pt-2 pb-2 pl-2 ">Reset Password </p>
+				
+				<div class="row"  *ngIf="showPasswordnotmatchMsg">
+                <div class="alert alert-danger" role="alert">
+                Password Not Matched!
+                </div>
+                </div>
+					
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-5 col-form-label text-label">New Password  :<span> * </span> </label>
+                        <div class="col-sm-5">
+                            <input type="password" id="newpasswordid" class="form-control" formControlName="newpassword" [ngClass]="{ 'is-invalid': submitted && f.newpassword.errors }" appBlockCopyPaste>
+							<div *ngIf="submitted && f.newpassword.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.newpassword.errors.required">New Password is required</div>
+								<div class="error_msg1" *ngIf="f.newpassword.touched && f.newpassword.errors?.invalidPassword"> Password should have minimum 10 characters, maximum 50 characters, at least 1 uppercase letter, 1 lowercase
+                                letter, 1 special character and 1 number</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-5 col-form-label text-label pl-0 pr-0 ">Re-Enter New Password :<span> * </span></label>
+                        <div class="col-sm-5">
+                            <div class="col-md-12 pl-0 pr-0"> <input class="form-control" id="repasswordid" type="password" formControlName="repassword" [ngClass]="{ 'is-invalid': submitted && f.repassword.errors }" appBlockCopyPaste /> 
+							
+							<div *ngIf="submitted && f.repassword.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.repassword.errors.required">Please Re-Enter New Password</div>
+								 <div class="error_msg1" *ngIf="f.repassword.errors.confirmedValidator">New Password and Re-Enter New Password must be match.</div>
+                            </div>
+							</div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class=" mx-auto">
+
+
+                            <button type="submit" name="changePassword" class="btn btn-block login-btn mb-4 radius-p" (click)="clickButton('clickNewpass')">Submit</button>
+                        </div>
+                    </div>
+					
+					</div>
+
+                    
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

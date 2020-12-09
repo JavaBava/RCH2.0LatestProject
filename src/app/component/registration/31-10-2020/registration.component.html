@@ -1,0 +1,285 @@
+<div class="bg-primary pt-1 col-md-12 pl-0 pr-0"></div>
+<div class="col-md-10 pl-0 pr-  r 50 mb-4 mt-2 mx-auto ">
+  <div class="col-md-12 float-left">
+  <div class=" col-md-8 float-left logo-m ">
+      <a href=""> <img src="assets/images/logo-rch.png" alt="logo" class="logo"> </a>
+  </div>
+  <div class=" col-md-4 float-right text-right nhm-logo">
+    <img src="assets/images/nhm-toplogo.png" alt="logo" class="logo float-left col-md-5">
+   <a href="/login"> <button type="submit"  class="btn btn-block bg-danger text-white mb-4 float-left col-md-6 mt-3 radius-p">Sign In </button> </a>
+</div>
+</div>
+</div>
+
+    <div class="card mx-auto col-md-7 login-card mb-5">
+      <div class=" no-gutters col-md-12">
+        <div class="col-md-12">
+          <div class="card-body mt-3 ">
+            <p class="login-card-description  bg-primary text-white pt-2 pb-2 pl-2 ">Register Here  </p>
+			
+                            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm)" autocomplete="off" class="mx-auto text-13">
+							
+							
+                <div class="col-md-12 pl-0 pr-0 ml-2 mr-0 mt-1 float-left mb-2">
+                  <label for="staticEmail" class="col-sm-2 col-form-label float-left pl-0 pr-0 text-label">Name : <span> * </span></label>
+                  <div class="col-sm-7 pl-0 ml-0 float-left ml-3">
+                    <input type="text" placeholder="First Name" class="form-control col-md-4 mr-2 ml-0  float-left" id="firstname" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" >
+					
+                    <input type="text" placeholder="Middle Name" id="secondname" name="secondname" formControlName="secondname" class="form-control col-md-4 mr-2 float-left" >
+                    <input type="text" placeholder="Last Name" id="lastname" name="lastname" formControlName="lastname" class="form-control col-md-3 float-left" >
+					
+					<div *ngIf="submitted && f.firstname.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.firstname.errors.required" >First Name is required</div>
+                            </div>
+                  </div>
+				  
+                </div>
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> User ID : <span> * </span></label>
+                    <div class="col-sm-7 pl-0 ml-0 float-left">
+					<input  class="form-control  pr-4" type="text" id="username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/> 
+					<div *ngIf="submitted && f.username.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.username.errors.required">User ID is required</div>
+								<div class="error_msg1" *ngIf="f.username.errors.pattern">User ID is not correct.</div>
+                            </div>
+					</div>
+					
+					
+							
+                    </div>
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                        <label for="inputPassword" class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label">Email : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0">
+						<input  class="form-control pr-4" type="text" id="emailid" formControlName="emailid" [ngClass]="{ 'is-invalid': submitted && f.emailid.errors }" />
+                        <div *ngIf="submitted && f.emailid.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.emailid.errors.required">Email is required</div>
+								    <div class="error_msg1" *ngIf="f.emailid.errors.pattern">Email Id is not correct.</div>
+                            </div>
+							
+						</div>
+                    </div>               
+                </div> 
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> Mobile : <span> * </span></label>
+                    <div class="col-sm-7 float-left pl-0 ml-0">
+					<input  class="form-control text-right pr-2" type="text" id="mobno" formControlName="mobno" [ngClass]="{ 'is-invalid': submitted && f.mobno.errors }"/> 
+					<div *ngIf="submitted && f.mobno.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.mobno.errors.required">Mobile is required</div>
+								<div *ngIf="f.mobno.errors.pattern">Please, Enter valid 10 digit Mobile Number.</div>
+                            </div>
+						
+					</div>
+                    </div>
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                        <label for="inputPassword" class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label">Address : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0">
+						<input  class="form-control" id="address" type="text" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+                         <div *ngIf="submitted && f.address.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.address.errors.required">Address is required</div>
+                            </div>
+					
+						</div>
+                    </div>               
+                </div>                
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> DOB :<span> * </span></label>
+                    <div class="col-sm-7 float-left pl-0 ml-0">
+
+					<!--<input  class="form-control text-right pr-4" type="text" id="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" formControlName="dob" ngbDatepicker #d="ngbDatepicker" [readonly]="true" [minDate]="{year: 1955, month: 1, day: 1}"
+                [maxDate]="{year: 2005, month: 12, day: 31}">  -->
+
+               
+<input  class="form-control text-right pr-4"  type="text" id="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" formControlName="dob" ngbDatepicker #d="ngbDatepicker" [readonly]="true" 
+[maxDate]="maxDate" [minDate]="minDate" [startDate]="startDate" >
+
+         <div class="font-icon pl-3" (click)="d.toggle()" style="Z-index:999" > <i class="fa fa-calendar"></i> </div>
+         
+				 
+					<div *ngIf="submitted && f.dob.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.dob.errors.required">DOB is required</div>
+                            </div>
+
+							
+					 </div>
+                    </div>
+
+                  
+
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                        <label for="inputPassword" class="col-sm-5 col-form-label pl-0 pr-0 float-left text-label">Gender : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0">  <select class="form-control" id="gender" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                            <option value="" disabled>Please Select </option>
+                            <option value="M">Male </option>
+                            <option value="F">Female</option>
+                            <option value="T">Transgender</option>
+                          </select> 
+						  <div *ngIf="submitted && f.gender.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.gender.errors.required">Gender is required</div>
+                            </div>
+
+						  
+						  </div>
+                    </div>               
+                </div> 
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> Designation : <span> * </span></label>
+                    <div class="col-sm-7 float-left pl-0 ml-0">
+					<input  class="form-control text-left pr-4" id="designation" type="text" formControlName="designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }"/>  
+					<div class="error_msg1" *ngIf="submitted && f.designation.errors" class="invalid-feedback error_msg">
+                                <div *ngIf="f.designation.errors.required">Designation is required</div>
+                            </div>
+
+					</div>
+                    </div>
+                    <div class="form-group col-md-6 float-left pl-0 pr-0">
+                        <label for="inputPassword" class="col-sm-5 col-form-label pl-0 pr-0 float-left text-label">Types : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0">  
+						
+						<select class="form-control" id="user_type" formControlName="user_type" [ngClass]="{ 'is-invalid': submitted && f.user_type.errors }"   >
+                            <option value="" selected="selected" disabled >Please Select </option>
+                        <option *ngFor ="let s of userType" [ngValue]="s.typeId">{{s.typeName}} </option> 
+                          </select> 
+						  <div *ngIf="submitted && f.user_type.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.user_type.errors.required">Type is required</div>
+                            </div>
+
+						  
+						  </div>
+                    </div>               
+                </div>  
+                
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showState">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> State : <span> * </span></label>
+                    <div class="col-sm-7 float-left pl-0 ml-0">
+										
+					<select class="form-control"  id="user_state"  [(ngModel)]="selectedState" (change)="changeDistrict()" formControlName="user_state" [ngClass]="{ 'is-invalid': submitted && f.user_state.errors }" >
+                         <option value="" [selected]="true" disabled>Please Select </option>
+                        <option *ngFor ="let s of state" value="{{s.stateId}}-{{s.nameE}}">{{s.nameE}} </option>                      
+						</select>
+						
+					
+						
+<div *ngIf="submitted && f.user_state.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.user_state.errors.required">State is required</div>
+                            </div>
+
+					  </div>
+                    </div>
+					
+                    <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showDistrict">
+                        <label for="inputPassword" class="col-sm-5 col-form-label pl-0 pr-0 float-left text-label">District : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0"> 
+						<select class="form-control" id="districtCode" [(ngModel)]="selectedDistrict" (change)="changeHealthBlock()" formControlName="user_district" [ngClass]="{ 'is-invalid': submitted && f.user_district.errors }">
+                            <option value="" disabled>Please Select </option>
+                            <option *ngFor ="let d of district" value="{{d.dcode}}-{{d.mddsCode}}-{{d.nameE}}" >{{d.nameE}} </option>                          </select>
+
+<div *ngIf="submitted && f.user_district.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.user_district.errors.required">District is required</div>
+                            </div>
+
+						  </div>
+                    </div>  
+					
+                </div>    
+                
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                    <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showRuralUrban">
+                    <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label"> Rural/Urban : <span> * </span></label>
+                    <div class="col-sm-7 float-left pl-0 ml-0">
+					
+					<select id="rural_urban" class="form-control"  formControlName="rural_urban" [ngClass]="{ 'is-invalid': submitted && f.rural_urban.errors }" >
+                        <option value="" disabled>Please Select </option>
+						
+						<option value="r">Rural</option>
+						<option value="u" disabled>Urban</option>
+                        
+						
+                      </select> 
+					  <div *ngIf="submitted && f.rural_urban.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.rural_urban.errors.required">Rural/Urban is required</div>
+                            </div>
+
+					  
+					  </div>
+                    </div>
+                    <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showHealthBlock">
+                        <label for="inputPassword" class="col-sm-5 col-form-label pl-0 pr-0 float-left text-label">Health Block /<br> ULB : <span> * </span></label>
+                        <div class="col-sm-7 float-left pl-0 ml-0">  <select class="form-control" id="healthBlockCode" [(ngModel)]="selectedHealthBlock" name="healthBlockCode"  formControlName="health_block" [ngClass]="{ 'is-invalid': submitted && f.health_block.errors }">
+                            <option disabled>Please Select </option>
+                            <option *ngFor ="let h of healthBlock" value="{{h.bid}}-{{h.mddsCode}}-{{h.tcode}}-{{h.nameE}}" >{{h.nameE}} </option>
+                          </select>
+                          <div *ngIf="submitted && f.health_block.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.health_block.errors.required">Health Block / ULB is required</div>
+                            </div>
+
+
+						  </div>
+                    </div>               
+                </div>   
+                <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                  <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showHealthFacilityType">
+                  <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label">Health Facility <br>Type : <span> * </span></label>
+                  <div class="col-sm-7 float-left pl-0 ml-0"><select class="form-control" id="facility_type" [(ngModel)]="selectedFacilityType" 
+				  (change)="changeHealthPHC()"  formControlName="facility_type" [ngClass]="{ 'is-invalid': submitted && f.facility_type.errors }">
+                      <option value="" disabled>Please Select </option>
+                       <option *ngFor ="let s of facilityType" [ngValue]="s.id" >{{s.typeName}} </option> 
+                    </select>
+<div *ngIf="submitted && f.facility_type.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.facility_type.errors.required">Facility Type is required</div>
+                            </div>
+
+					</div>
+                  </div>
+                  <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showHealthFacility">
+                      <label for="inputPassword" class="col-sm-5 col-form-label pl-0 pr-0 float-left text-label">Health Facility : <span> * </span></label>
+                      <div class="col-sm-7 float-left pl-0 ml-0">  
+					  <select class="form-control" id="healthFacilityCode" [(ngModel)]="selectedFacilityCode" (change)="changeHealthSubCentres()" name="healthFacilityCode" formControlName="facility" [ngClass]="{ 'is-invalid': submitted && f.facility.errors }">
+                          <option value="" disabled>Please Select </option>
+                           <option *ngFor ="let b of healthPHC" value="{{b.pid}}-{{b.nameE}}" >{{b.nameE}} </option>
+                        </select>
+<div *ngIf="submitted && f.facility.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.facility.errors.required">Facility is required</div>
+                            </div>
+							
+
+						</div>
+                  </div>               
+              </div> 
+              <div class="col-md-12 pl-0 pr-0 ml-0 mr-0 mt-1 float-left">  
+                <div class="form-group col-md-6 float-left pl-0 pr-0" *ngIf="showHealthSubFacility">
+                <label  class="col-sm-5 col-form-label float-left pl-0 pr-0 text-label">Sub Facility : <span> * </span></label>
+                <div class="col-sm-7 float-left pl-0 ml-0"><select class="form-control" id="healthSubCentreCode" [(ngModel)]="selectedSubCentre"  name="healthSubCentreCode" formControlName="subfacility" [ngClass]="{ 'is-invalid': submitted && f.subfacility.errors }">
+                    <option value="" disabled>Please Select </option>
+                    <option *ngFor ="let h of healthSubcentres" value="{{h.sid}}-{{h.nameE}}" >{{h.nameE}} </option>
+                  </select>
+				  
+<div *ngIf="submitted && f.subfacility.errors" class="invalid-feedback error_msg">
+                                <div class="error_msg1" *ngIf="f.subfacility.errors.required">Sub Facility is required</div>
+                            </div>
+
+
+				  </div>
+                </div>
+             
+            </div> 
+			
+
+               <div class="clearfix"></div>       
+                <div class="col-md-3 pl-0 pr-0 ml-0 mr-0 mt-1 mx-auto">  
+                  <div class=" mx-auto">
+                    <button type="submit"  class="btn btn-block login-btn mb-4 radius-p">Submit</button>
+                  </div>
+                </div>                              
+            
+              </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 float-left mt-5 mb-5"></div>
