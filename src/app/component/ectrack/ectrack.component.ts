@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ECModel } from 'src/app/Core/Model/ec-model';
 import { ectEntity } from 'src/app/ECTentity';
@@ -25,7 +25,7 @@ export class EctrackComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private backendApiService: BackendAPIService, private token: TokenstoreageService, public datepipe: DatePipe, private route: ActivatedRoute, public router: Router, private tokenservice: TokenStorageService, private ipservice: IpServiceService, private ngzone: NgZone) {
+  constructor(private formBuilder: FormBuilder, private backendApiService: BackendAPIService, private token: TokenstoreageService, public datepipe: DatePipe, private route: ActivatedRoute, public router: Router, private tokenservice: TokenStorageService, private ipservice: IpServiceService) {
 
   }
 
@@ -34,16 +34,16 @@ export class EctrackComponent implements OnInit {
 
 
 
-   let RCHID: string = this.route.snapshot.queryParamMap.get('ID')
-    this.rchId = Number(this.route.snapshot.queryParamMap.get('ID'));
+  //  let RCHID: string = this.route.snapshot.queryParamMap.get('ID')
+   // this.rchId = Number(this.route.snapshot.queryParamMap.get('ID'));
 
- // let RCHID: string= window.localStorage.getItem("ID");
- //  this.rchId = Number(RCHID)
+   let RCHID: string= window.localStorage.getItem("ID");
+   this.rchId = Number(RCHID)
 
-  // if (RCHID=="" || window.localStorage.getItem("rchid")==null)
- if (RCHID == "") 
+   if (RCHID=="" || window.localStorage.getItem("rchid")==null)
+  //  if (RCHID == "") 
    {
-     this.router.navigate(['home/ecprofile']);
+      this.router.navigate(['home/ecprofile']);
     }
     else {
 
@@ -345,7 +345,7 @@ export class EctrackComponent implements OnInit {
       const visitNgbdate = formGroup.controls[vDate];
       const lmpNgbDate = formGroup.controls[lmpdate];
       const visitdate = visitNgbdate.value ? new Date(visitNgbdate.value.year, visitNgbdate.value.month - 1, visitNgbdate.value.day) : new Date();
-      const LmpDate = lmpNgbDate.value ? new Date(lmpNgbDate.value.year, lmpNgbDate.value.month - 1, lmpNgbDate.value.day) :  new Date();
+      const LmpDate = lmpNgbDate.value ? new Date(lmpNgbDate.value.year, lmpNgbDate.value.month - 1, lmpNgbDate.value.day) : new Date();
       const lastLmpDate = new Date(this.lastLmpDate);
       if (!lmpNgbDate || !visitNgbdate) {
         return null;
@@ -392,7 +392,7 @@ export class EctrackComponent implements OnInit {
       const visitNgbdate = formGroup.controls[vDate];
       const lastVisit = formGroup.controls[lDate];
 
-      const visitdate = visitNgbdate.value ? new Date(visitNgbdate.value.year, visitNgbdate.value.month-1, visitNgbdate.value.day) :  new Date();
+      const visitdate = visitNgbdate.value ? new Date(visitNgbdate.value.year, visitNgbdate.value.month-1, visitNgbdate.value.day) : new Date();
       const registrationDate: Date = new Date(this.datepipe.transform(regisdate.value, 'yyyy-MM-dd'));
       const lastVisitDate: Date = new Date(this.datepipe.transform(lastVisit.value, 'yyyy-MM-dd'))
       console.log('Registration date ' + "--" + regisdate.value + "---" + registrationDate + "VisitDate-----" + visitdate)
@@ -742,12 +742,7 @@ checkEctInsertUpdate(_registrationId: Number,_caseNoParam : Number ,_visitDatePa
     //let lastVisitdate: Array<Date>;
     this.backendApiService.getECTbyRegNo(registrationId).subscribe((res: Response) => {
       let response = JSON.parse(JSON.stringify(res));
-      this.ngzone.run(()=>{
-        this.ectmodel = response;
-        console.log(this.ectmodel);
-      })
-      
-      
+      this.ectmodel = response;
       this.ectArray=response;
       console.log(response);
       console.log("ASHUTOSH SHARMA" + "     " + response.length)
@@ -811,13 +806,13 @@ checkEctInsertUpdate(_registrationId: Number,_caseNoParam : Number ,_visitDatePa
 
 
   bindformEC(ecmodel: ECModel) {
-    let womenFirstName : String = ecmodel.nameWife? ecmodel.nameWife : ""
-    let womenMiddleName : String =ecmodel.middleNameWife?  ecmodel.middleNameWife : ""
-    let womenLastName : String = ecmodel.lastNameWife ?  ecmodel.lastNameWife  : ""
+    let womenFirstName : String = ecmodel.nameWife
+    let womenMiddleName : String =ecmodel.middleNameWife
+    let womenLastName : String = ecmodel.lastNameWife
     let registrationDate : Date = new Date(ecmodel.dateRegis)
-    let husbandFirstName : String = ecmodel.nameHusband? ecmodel.nameHusband: ""
-    let husbandMiddleName : String = ecmodel.middleNameHusband ? ecmodel.middleNameHusband: ""
-    let husbandLastName : String =ecmodel.lastNameHusband? ecmodel.lastNameHusband : ""
+    let husbandFirstName : String = ecmodel.nameHusband
+    let husbandMiddleName : String = ecmodel.middleNameHusband
+    let husbandLastName : String =ecmodel.lastNameHusband
     const wifeName = womenFirstName+" "+womenMiddleName+" "+womenLastName;
     const husbandName= husbandFirstName+" "+husbandMiddleName+" "+husbandLastName;
 
@@ -996,8 +991,6 @@ this.ectForm.controls['dateRegis'].setValue(this.datepipe.transform(new Date(ecm
 
   clearEct() {
 
-    this.ectForm.get('ecLmpDate').setErrors(null);
-    this.ectForm.get('visitDate').setErrors(null);
     this.ectForm.get('ecLmpDate').enable();
     this.ectForm.get('pregnant').enable();
     this.ectForm.get('visitDate').enable();
@@ -1008,11 +1001,11 @@ this.ectForm.controls['dateRegis'].setValue(this.datepipe.transform(new Date(ecm
  
  this.editFlag=false;
     this.submitted = false;
-debugger;
+
 
     this.ectForm.reset();
   
-    this.ectForm.clearValidators();
+    //this.ectForm.clearValidators();
     //this.ectForm.clearAsyncValidators();
     //this.ectForm.updateValueAndValidity();
     //this.ectForm.markAsPristine();
@@ -1020,7 +1013,6 @@ debugger;
     this.createECTform();
    //this.createMethodArray();
     this.getecdetails(this.rchId);
-   // this.awa
     this.getectdetails(this.rchId);
     this.getHealthFacility();
     this.getContraMethods();

@@ -1,309 +1,638 @@
 <div class="col-md-12 mt-2 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left"> Infant PNC Details
+
 </div>
 
+<div class="border bg-white mt-1 col-md-12 float-left pl-0 pr-0">
 
 
-  <div class="border bg-white mt-1 col-md-12 float-left pl-0 pr-0">
 
-    <form class="text-13">
-      <div class="oppacity col-md-12 float-left pb-3 pt-1 mt-2">
-  
-  
-        <div class="col-md-12 pr-0 pl-0  mt-1 float-left ">
-            <div class="col-md-3 float-left pl-0 pr-0 ">
-                 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Infant  RCH ID  No. :  <span> *</span> </label>  </div>
-                <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label">Infant  Name : <span> *</span>   </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>      
-    
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Date of Birth :  <span> *</span>  </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Mobile no. :  <span> *</span>  </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/>  </div>
-            </div>      
-        </div>  
-     
-        <div class="col-md-12 pr-0 pl-0  mt-1 float-left ">
-            <div class="col-md-3 float-left pl-0 pr-0 ">
-                 <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Mother RCH ID  :  <span> *</span> </label>  </div>
-                <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Mother Name : <span> *</span>   </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>      
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Mother Age :  <span> *</span>  </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/>  </div>
-            </div>   
-            <div class="col-md-3 float-left pl-0 pr-0">
-              <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label  class="text-label"> Father Name :  <span> *</span>  </label>  </div>
-              <div class="col-sm-6 float-left text-12">   <input class="form-control input-new ml-0" type="text" readonly/> </div>
-            </div>
-      
-        </div>  
-      </div>   
-      <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
-        <div class="col-md-6 float-left">
-             <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Infant  Registration No :<span> * </span>  </label>  </div>
-             <div class=" ml-2 mt-2 float-left"><input type="radio" name="optradio" checked class="float-left"> </div> 
-             <div class="col-sm-4 float-left"> <input class="form-control input-new ml-0 float-left" type="text" /> </div>
+  <form class="text-13" [formGroup]="childPNCForm" (ngSubmit)="submitForm(childPNCForm)">
+
+    <div class="oppacity col-md-12 float-left pb-3 pt-1 mt-2">
+
+
+
+
+
+      <div class="col-md-12 pr-0 pl-0  mt-1 float-left ">
+
+        <div class="col-md-3 float-left pl-0 pr-0 ">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Infant RCH
+              ID No. : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
         </div>
-   
-    </div>    
-      <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
-        <div class="col-md-6 float-left">
-             <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Health Provider Name : <span> * </span>  </label>  </div>
-             <div class="col-sm-5 float-left">  <select class="form-control">
-              <option>Select </option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>  </div>
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label">Infant Name
+              : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
         </div>
-        <div class="col-md-6 float-left ">
-            <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> ASHA Name :  <span> * </span>  </label>  </div>
-            <div class="col-sm-5 float-left"> <select class="form-control">
-                            <option>Select </option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                          </select>
-            </div>
-        </div>      
-    </div>  
+
+
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Date of
+              Birth : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Mobile no.
+              : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="col-md-12 pr-0 pl-0  mt-1 float-left ">
+
+        <div class="col-md-3 float-left pl-0 pr-0 ">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Mother RCH
+              ID : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Mother
+              Name : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Mother Age
+              : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+        <div class="col-md-3 float-left pl-0 pr-0">
+
+          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0 text-12"> <label class="text-label"> Father
+              Name : <span> *</span> </label> </div>
+
+          <div class="col-sm-6 float-left text-12"> <input class="form-control input-new ml-0" type="text" readonly />
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
 
     <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
 
-        <div class="col-md-6 float-left">
-             <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> PNC Period :  <span> *</span> </label>  </div>
-            <div class="col-sm-5 float-left"> <select class="form-control">
-              <option>Select </option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>  </div>
-        </div>  
-        <div class="col-md-6 float-left">
-          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Date of HBNC/PNC : <span> *</span>  </label>  </div>
-         <div class="col-sm-5 float-left">   <input class="form-control " type="text" /> <div class="font-icon">  <i class='fas fa-calendar-alt'></i> </div>  </div>
-     </div> 
-    </div>     
-      
-      <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
-        <div class="col-md-6 float-left ">
-          <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Weight of Baby (kg) :    </label>  </div>
-          <div class="col-sm-3 float-left"> <select class="form-control">
-                          <option>Select </option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                        </select>
-          </div>
-      </div> 
-          <div class="col-md-6 float-left">
-               <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Was temperature of baby checked during PNC visit  :  </label>  </div>
-              <div class="col-sm-3 float-left"> <select class="form-control">
-                <option>Select </option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>  </div>
-          </div>  
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Infant Registration No :<span> *
+            </span> </label> </div>
+
+        <div class=" ml-2 mt-2 float-left"><input type="radio" name="optradio" checked class="float-left"> </div>
+
+        <div class="col-sm-4 float-left"> <input class="form-control input-new ml-0 float-left" type="text" /> </div>
 
       </div>
 
-  
-      <div class="col-md-12 pr-0 pl-0  mt-1 float-left text-12">
-          <div class="col-md-6 float-left">
-               <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label">Indicate danger sign(s) (if any) present for Baby	 : </label>  </div>
-              <div class="col-sm-4 float-left"> <select class="form-control">
-                              <option>Select </option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                            </select></div>
-          </div>
-          <div class="col-md-6 float-left">
-               <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Other danger sign : </label>  </div>
-              <div class="col-sm-4 float-left">   <input class="form-control input-new ml-0" type="text" /> </div>
-          </div>  
-      
+
+
+    </div>
+
+    <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Health Provider Name : <span> *
+            </span> </label> </div>
+
+        <div class="col-sm-5 float-left"><select id="anmid" 
+          name="anmid" class="form-control" formControlName="anmid"
+         >
+          <option value="" hidden>Select ANM</option>
+          <option *ngFor="let a of healthProviderANM" [value]="a.id">{{a.name}}</option>
+
+        </select>
       </div>
-      
-      <div class="col-md-12 pr-0 pl-0  mt-0 float-left text-12">
-          <div class="col-md-6 float-left">
-               <div class="col-sm-6 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> If baby danger sign (s) present, was Pre-referral dose of Syrup Amoxicillin and Injection Gentamicin given	 :</label>  </div>
-              <div class="col-sm-4 float-left mt-2"> <select class="form-control">
-                              <option>Select </option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                            </select></div>
-          </div>
-          <div class="col-md-6 float-left">
-               <div class="col-sm-6  text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Baby-If referral to facility was refused by family, was the treatment continued for baby for seven days :</label>  </div>
-              <div class="col-sm-4 float-left mt-2"> <select class="form-control">
-                <option>Select </option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select></div>
-          </div>  
-      
-      </div> 
-      
-      <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
-        <div class="col-md-6 float-left">
-             <div class="col-sm-6 text-right float-left pl-0 mr-0 pr-0 mt-2"> <label  class="text-label"> Referral Facility Type : </label>  </div>
-            <div class="col-sm-5 float-left "> <select class="form-control">
-                            <option>Select </option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                          </select></div>
-        </div>
-        <div class="col-md-6 float-left">
-             <div class="col-sm-6  text-right float-left pl-0 mr-0 pr-0 mt-2"> <label  class="text-label"> Facility Name : </label>  </div>
-            <div class="col-sm-5 float-left ">   <input class="form-control input-new ml-0" type="text" /> </div>
-        </div>  
-    
-    </div> 
-   
-<div class="col-md-12 float-left pt-2 text-12 pr-0 pl-0 ">
-<fieldset class="col-md-12 float-left border border-info pb-3">
-  <legend class=" pl-2 text-13 text-info leg-border pr-3"> Infant Death </legend>
-    <div class="col-md-12 pr-0 pl-0  mt-1 float-left">
-      <div class="col-md-4 float-left">
-           <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Infant Death (Y/N) : <span> *</span>  </label>  </div>
-          <div class="col-sm-5 float-left"> <select class="form-control">
-                          <option>Select </option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                        </select></div>
+    </div>
+      <div class="col-md-6 float-left ">
+
+        <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> ASHA Name : <span> * </span>
+          </label> </div>
+
+        <div class="col-sm-5 float-left"> <select id="anmid" 
+          name="anmid" class="form-control" formControlName="anmid"
+         >
+          <option value="" hidden>Select ANM</option>
+          <option *ngFor="let a of healthProviderANM" [value]="a.id">{{a.name}}</option>
+
+        </select>
+
+        </div> 
+
       </div>
-      <div class="col-md-4 float-left">
-           <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Cause of Death :<span> *</span> </label>  </div>
-          <div class="col-sm-6 float-left"><select class="form-control">
+
+    </div>
+
+
+
+    <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
+
+
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> PNC Period : <span> *</span>
+          </label> </div>
+
+        <div class="col-sm-5 float-left"> <select class="form-control">
+
             <option>Select </option>
+
             <option>2</option>
+
             <option>3</option>
+
             <option>4</option>
+
           </select> </div>
-      </div>  
-      <div class="col-md-4 float-left">
-        <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Other :<span> *</span> </label>  </div>
-       <div class="col-sm-6 float-left"> <input class="form-control input-new ml-0" type="text" /></div>
-   </div>   
-  </div> 
-  <div class="col-md-12 pr-0 pl-0  mt-2 float-left">
-    <div class="col-md-4 float-left">
-         <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Date of Death : <span> *</span>  </label>  </div>
-        <div class="col-sm-6 float-left">   <input class="form-control input-new ml-0" type="text" />  </div>
-    </div>
-    <div class="col-md-4 float-left">
-         <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label">Place of Death :<span> *</span> </label>  </div>
-        <div class="col-sm-6 float-left"> <select class="form-control">
-          <option>Select </option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select> </div>
-    </div>  
-    <div class="col-md-4 float-left">
-      <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Notification sent within <br>24hrs  by ASHA : <span> *</span>  </label>  </div>
-     <div class="col-sm-6 float-left"> <select class="form-control">
-       <option>Select </option>
-       <option>2</option>
-       <option>3</option>
-       <option>4</option>
-     </select> </div>
- </div>
-</div> 
-<div class="col-md-12 pr-0 pl-0  mt-1 float-left">
 
-  <div class="col-md-4 float-left">
-       <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label">FBIR completed by ANM  :<span> *</span> </label>  </div>
-      <div class="col-sm-6 float-left"> <select class="form-control">
-        <option>Select </option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-      </select> </div>
-  </div>  
+      </div>
 
-  <div class="col-md-4 float-left">
-    <div class="col-sm-6 mt-2 text-right float-left pl-0 mr-0 pr-0"> <label  class="text-label"> Remarks (If any) :  </label>  </div>
-   <div class="col-sm-6 float-left"> <textarea class="form-control input-new ml-0" type="text" > </textarea>  </div>
-</div>
+      <div class="col-md-6 float-left">
 
-</div> 
+        <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Date of HBNC/PNC : <span> *</span>
+          </label> </div>
 
-</fieldset>
-</div>
-      <section class="col-md-12 pr-0 pl-0 float-left ">
-        <div class="mx-auto mt-4 mb-2 col-sm-3">
-          <a class="btn btn-success radius-p text-12 mr-2" href="#">Save </a>
-          <a class="btn btn-danger radius-p text-12" href="#"> Continue </a>
+        <div class="col-sm-5 float-left"> <input class="form-control " type="text" />
+          <div class="font-icon"> <i class='fas fa-calendar-alt'></i> </div>
         </div>
-      </section>
-  </form>
-   
-  </div> 
-  <div class="text-center col-md-12 col-md-12 pr-0 pl-0 font-table mt-2 text-12">
-    <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Dummy Text  </th>
-        <th scope="col">Dummy Text </th>
-        <th scope="col"> Dummy Text   </th>
-        <th scope="col">Dummy Text  </th>
-        <th scope="col">Dummy Text </th>
-        <th scope="col"> Dummy Text   </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="col-md-12 pr-0 pl-0">1</th>
-        <td> Dummy Text </td>
-        <td> Dummy Text</td>
-        <td>Dummy Text</td>
-      <td>- </td>
-        <td> - </td>
-        <td> - </td>
-      <td>- </td>
-      </tr>
-      <tr>
-        <th scope="col-md-12 pr-0 pl-0">1</th>
-        <td> Dummy Text </td>
-        <td> Dummy Text</td>
-        <td>Dummy Text</td>
-      <td>- </td>
-        <td> - </td>
-        <td> - </td>
-      <td>- </td>
-      </tr>
-      <tr>
-        <th scope="col-md-12 pr-0 pl-0">1</th>
-        <td> Dummy Text </td>
-        <td> Dummy Text</td>
-        <td>Dummy Text</td>
-      <td>- </td>
-        <td> - </td>
-        <td> - </td>
-      <td>- </td>
-      </tr>
-  
-    </tbody>
-  </table>
-  
-	
+
+      </div>
+
     </div>
+
+
+
+    <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
+
+      <div class="col-md-6 float-left ">
+
+        <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Weight of Baby (kg) : </label>
+        </div>
+
+        <div class="col-sm-4 float-left"> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Was temperature of baby checked
+            during PNC visit : </label> </div>
+
+        <div class="col-sm-5 float-left"> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select> </div>
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="col-md-12 pr-0 pl-0  mt-1 float-left text-12">
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label">Indicate danger sign(s) (if any)
+            present for Baby : </label> </div>
+
+        <div class="col-sm-5 float-left"> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select></div>
+
+      </div>
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Other danger sign : </label> </div>
+
+        <div class="col-sm-5 float-left"> <input class="form-control input-new ml-0" type="text" /> </div>
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <div class="col-md-12 pr-0 pl-0  mt-0 float-left text-12">
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 text-right float-left "> <label class="text-label"> If baby danger sign (s) present, was
+            Pre-referral dose of Syrup Amoxicillin and Injection Gentamicin given :</label> </div>
+
+        <div class="col-sm-5 float-left mt-2"> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select></div>
+
+      </div>
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6  text-right float-left"> <label class="text-label"> Baby-If referral to facility was
+            refused by family, was the treatment continued for baby for seven days :</label> </div>
+
+        <div class="col-sm-5 float-left mt-2"> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select></div>
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <div class="col-md-12 pr-0 pl-0  mt-2 float-left text-12">
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6 text-right float-left  mt-2"> <label class="text-label"> Referral Facility Type : </label>
+        </div>
+
+        <div class="col-sm-5 float-left "> <select class="form-control">
+
+            <option>Select </option>
+
+            <option>2</option>
+
+            <option>3</option>
+
+            <option>4</option>
+
+          </select></div>
+
+      </div>
+
+      <div class="col-md-6 float-left">
+
+        <div class="col-sm-6  text-right float-left  mt-2"> <label class="text-label"> Facility Name : </label> </div>
+
+        <div class="col-sm-5 float-left "> <input class="form-control input-new " type="text" /> </div>
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <div class="col-md-12 float-left pt-2 text-12 pr-0 pl-0 ">
+
+      <fieldset class="col-md-12 float-left border border-info pb-3">
+
+        <legend class=" pl-2 text-13 text-info leg-border pr-3"> Infant Death </legend>
+
+        <div class="col-md-12 pr-0 pl-0  mt-1 float-left">
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left"> <label class="text-label"> Infant Death (Y/N) : <span>
+                  *</span> </label> </div>
+
+            <div class="col-sm-4 float-left"> <select class="form-control">
+
+                <option>Select </option>
+
+                <option>2</option>
+
+                <option>3</option>
+
+                <option>4</option>
+
+              </select></div>
+
+          </div>
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Cause of Death :<span>
+                  *</span> </label> </div>
+
+            <div class="col-sm-6 float-left"><select class="form-control">
+
+                <option>Select </option>
+
+                <option>2</option>
+
+                <option>3</option>
+
+                <option>4</option>
+
+              </select> </div>
+
+          </div>
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Other :<span> *</span>
+              </label> </div>
+
+            <div class="col-sm-6 float-left"> <input class="form-control input-new ml-0" type="text" /></div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-12 pr-0 pl-0  mt-2 float-left">
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Date of Death : <span>
+                  *</span> </label> </div>
+
+            <div class="col-sm-6 float-left"> <input class="form-control input-new ml-0" type="text" /> </div>
+
+          </div>
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label">Place of Death :<span> *</span>
+              </label> </div>
+
+            <div class="col-sm-6 float-left"> <select class="form-control">
+
+                <option>Select </option>
+
+                <option>2</option>
+
+                <option>3</option>
+
+                <option>4</option>
+
+              </select> </div>
+
+          </div>
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Notification sent within
+                <br>24hrs by ASHA : <span> *</span> </label> </div>
+
+            <div class="col-sm-6 float-left"> <select class="form-control">
+
+                <option>Select </option>
+
+                <option>2</option>
+
+                <option>3</option>
+
+                <option>4</option>
+
+              </select> </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-12 pr-0 pl-0  mt-1 float-left">
+
+
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label">FBIR completed by ANM :<span>
+                  *</span> </label> </div>
+
+            <div class="col-sm-6 float-left"> <select class="form-control">
+
+                <option>Select </option>
+
+                <option>2</option>
+
+                <option>3</option>
+
+                <option>4</option>
+
+              </select> </div>
+
+          </div>
+
+
+
+          <div class="col-md-4 float-left">
+
+            <div class="col-sm-6 mt-2 text-right float-left "> <label class="text-label"> Remarks (If any) : </label>
+            </div>
+
+            <div class="col-sm-6 float-left"> <textarea class="form-control input-new ml-0" type="text"> </textarea>
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+
+
+      </fieldset>
+
+    </div>
+
+    <section class="col-md-12 pr-0 pl-0 float-left ">
+
+      <div class="mx-auto mt-4 mb-2 col-sm-12 text-center">
+
+        <button class="btn btn-success radius-p text-12 mr-2" >Save </button>
+
+        <a class="btn btn-danger radius-p text-12" href="#"> Continue </a>
+
+      </div>
+
+    </section>
+
+  </form>
+
+
+
+
+
+  <div class="text-center col-md-12 col-md-12 pr-0 pl-0 font-table mt-2 text-12 float-left">
+
+    <table class="table">
+
+      <thead class="thead-dark">
+
+        <tr>
+
+          <th scope="col">Dummy Text </th>
+
+          <th scope="col">Dummy Text </th>
+
+          <th scope="col"> Dummy Text </th>
+
+          <th scope="col">Dummy Text </th>
+
+          <th scope="col">Dummy Text </th>
+
+          <th scope="col"> Dummy Text </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr>
+
+          <th scope="col-md-12 pr-0 pl-0">1</th>
+
+          <td> Dummy Text </td>
+
+          <td> Dummy Text</td>
+
+          <td>Dummy Text</td>
+
+          <td>- </td>
+
+          <td> - </td>
+
+
+
+        </tr>
+
+        <tr>
+
+          <th scope="col-md-12 pr-0 pl-0">1</th>
+
+          <td> Dummy Text </td>
+
+          <td> Dummy Text</td>
+
+          <td>Dummy Text</td>
+
+          <td>- </td>
+
+          <td> - </td>
+
+
+
+        </tr>
+
+        <tr>
+
+          <th scope="col-md-12 pr-0 pl-0">1</th>
+
+          <td> Dummy Text </td>
+
+          <td> Dummy Text</td>
+
+          <td>Dummy Text</td>
+
+          <td>- </td>
+
+          <td> - </td>
+
+
+
+        </tr>
+
+
+
+      </tbody>
+
+    </table>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
 <div class="col-md-12 float-left mt-5 mb-5"> </div>

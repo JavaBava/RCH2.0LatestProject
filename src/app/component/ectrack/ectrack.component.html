@@ -17,7 +17,6 @@
       <span class="">Tracking of Eligible Couples</span> </li>
   </ul>
 
-
 </div>
 
 <div class="col-md-12 mt-3 pt-2 pb-2 pl-3 bg-primary text-white rounded text-16 float-left"> Eligible Couple Tracking
@@ -895,15 +894,13 @@
     </section>
   </form>
 
-    <h2>Form Valid : {{ectForm.valid}}</h2>
-   <!--   <h2>Edit Flag : {{editFlag}}</h2>
+ <!--     <h2>Form Valid : {{ectForm.valid}}</h2>
+    <h2>Edit Flag : {{editFlag}}</h2>
     <h3>{{lastLMPdateMsg}}</h3>
  <h5>{{ectForm.value | json}}</h5>  
     <h5>{{mfg.LAcheck.value}}</h5>  
-
- <h6>{{ectmodel | json}}</h6>  -->
-
-   <div class="text-center col-md-12 float-left mt-2 pl-0 pr-0">
+ -->
+  <div class="text-center col-md-12 float-left mt-2 pl-0 pr-0">
     <table class="table">
       <thead class="thead-dark text-11 border-dark border">
         <tr class="border-dark border">
@@ -921,8 +918,7 @@
         </tr>
       </thead>
       <tbody class="text-10">
-         (click)="getEditVisit(ect.visitNo,ect.visitDate,ect.caseNo)" 
-        <tr class="trow" *ngFor="let ect of ectmodel" >
+        <tr class="trow" *ngFor="let ect of ectmodel" (click)="getEditVisit(ect.visitNo,ect.visitDate,ect.caseNo)">
           <td align="right">{{ect.visitNo}}</td>
           <td align="right">{{ect.visitDate|slice:0:10|date:'dd-MM-yyyy'}}</td>
           <td align="right">{{ect.ecLmpDate|slice:0:10|date:'dd-MM-yyyy'}}</td>
@@ -937,7 +933,7 @@
 
       </tbody>
     </table>
-  </div> 
+  </div>
 
 </div>
 <div class="col-md-12 float-left mt-5 mb-5"></div>
